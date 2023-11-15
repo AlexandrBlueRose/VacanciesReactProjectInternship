@@ -13,17 +13,17 @@ enum Genders {
  */
 type Person = {
     /**
-     * Name of the person
+     * Имя человека
      */
     name: string;
 
     /**
-     * Age of the person
+     * возраст человека
      */
     age: number;
 
     /**
-     * Gender of the person: female, male
+     * Пол: female, male
      */
     gender: Genders;
 };
@@ -35,12 +35,12 @@ type Person = {
  */
 interface User extends Person {
     /**
-     * Email of the person
+     * Email пользователя
      */
     email: string;
 
     /**
-     * Password of the person
+     * Пароль пользователя
      */
     password: string;
 }
@@ -59,6 +59,9 @@ const Alex: User = {
 
 console.log(`Задание 1\n${JSON.stringify(Alex)}`);
 
+
+
+
 // Задание 2
 
 /**
@@ -74,17 +77,17 @@ enum AnimalType {
  */
 type Animal = {
     /**
-     * Name of the Animal
+     * Название животного
      */
     name: string;
 
     /**
-     * Age of the Animal
+     * Возраст животного
      */
     age: number;
 
     /**
-     * Type of the Animal
+     * Тип животного
      */
     type: AnimalType;
 };
@@ -96,7 +99,7 @@ type Animal = {
  */
 interface Cat extends Animal {
     /**
-     * Sweetness of the Cat
+     * Уровень милоты
      */
     sweetness: number;
 }
@@ -108,7 +111,7 @@ interface Cat extends Animal {
  */
 interface Dog extends Animal {
     /**
-     * Loyalty of the Dog
+     * Уровень преданности
      */
     loyalty: number;
 }
@@ -120,7 +123,7 @@ interface Dog extends Animal {
  */
 interface Bird extends Animal {
     /**
-     * Uselessness of the Bird
+     * Уровень бесполезности
      */
     uselessness: number;
 }
@@ -164,6 +167,9 @@ console.log(
     ${JSON.stringify(husky)}\nRed Bird:
     ${JSON.stringify(redBird)}`
 );
+
+
+
 
 // Задание 3
 
@@ -294,6 +300,8 @@ gs.deleteItem(task);
 console.log('\ndelete:');
 console.log(gs.taskList);
 
+
+
 // Задание 4
 
 /**
@@ -314,9 +322,9 @@ type GroupExtraction<T, V> = Record<keyof T, V>;
  * строит пару из ключа поля объекта как литерала и значения соответствующего выбранному полю
  *
  * @function
- *
- * @param  callbackfn функция callback
- * @param {any} thisArg передача кастомного this для колбэка
+ * 
+ * @param arr входной массив абстрактных сущностей с типом определенным дженериком
+ * @param key ключ являющийся keyof параметром связанным с arr
  *
  * @returns GroupObjects<T>
  */
@@ -348,13 +356,16 @@ const objects = [
 const groupedByAge = groupBy(objects, 'age');
 console.log(groupedByAge);
 
-// Задание 5
-// объявляем файл .ts модулем чтобы
-export { };
 
+
+// Задание 5
+// Выполнил это задание добавляя в структуру функций для массивов Array для полной 
+// идентичности со стандартным map(хотя можно конечно и просто функцией)
+// объявляем файл .ts модулем чтобы вмешиваться в глобальные прототипы
+export { };
 declare global {
     /**
-     * Доопределяем интерфейс с новым методом
+     * Доопределяем стандартный глобальный интерфейс сущности Array новым методом
      *
      */
     interface Array<T> {
@@ -371,7 +382,8 @@ declare global {
     }
 }
 
-// В связи с тем, что Array.prototype readonly убираю предупреждение от eslint для этого задания тк меняю прототип стандартного
+// В связи с тем, что Array.prototype readonly убираю предупреждение от eslint для этого задания 
+// тк меняю прототип стандартного набора функций(куда поместил созданную мной функцию)
 /* eslint no-extend-native: ["error", { "exceptions": ["Array"] }] */
 Array.prototype.mapNew = function mapNew<U, T>(
     callbackfn: (value: T, index: number, array: T[]) => U,
@@ -381,7 +393,7 @@ Array.prototype.mapNew = function mapNew<U, T>(
         throw new TypeError('Cant iterate over undefined or null');
     }
 
-    let context: Array<U> = this;
+    let context: U[] = this;
     const object: T[] = this;
 
     if (arguments.length > 1) {
