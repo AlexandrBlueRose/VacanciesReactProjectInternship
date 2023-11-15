@@ -1,12 +1,14 @@
+import Head from 'next/head';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
+import { ThemeProvider, theme } from '../scripts/gds/gds';
 
 interface AppProvidersProps {
     children: ReactNode;
 }
 
-const AppProviders = ({ children }: AppProvidersProps) => {
+export default function Home({ children }: AppProvidersProps) {
     const [queryClient] = useState(
         () =>
             new QueryClient({
@@ -19,13 +21,14 @@ const AppProviders = ({ children }: AppProvidersProps) => {
                 },
             })
     );
-
     return (
-        <QueryClientProvider client={queryClient}>
-            {children}
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        <ThemeProvider theme={theme}>
+            <QueryClientProvider client={queryClient}>
+                <Head>
+                    <title>Test</title>
+                </Head>
+                <main>Hello world</main>
+            </QueryClientProvider>
+        </ThemeProvider>
     );
-};
-
-export default AppProviders;
+}

@@ -7,12 +7,13 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "tokens": "gds-tokens"
+        "tokens": "gds-tokens",
+        "repack": "rm -rf ./node_modules && yarn cache clean -all && yarn"
     },
     "dependencies": {
         "@emotion/core": "^10.1.1",
         "@emotion/styled": "11.3.0",
-        "@greensight/gds": "^3.0.6",
+        "@greensight/gds": "^3.0.2",
         "@tanstack/react-query": "^5.8.2",
         "@tanstack/react-query-devtools": "^5.8.2",
         "next": "14.0.2",
