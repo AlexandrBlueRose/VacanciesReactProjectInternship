@@ -1,22 +1,10 @@
-import { CSSObject } from '@emotion/core';
-import {
-    ComponentsTheme,
-    Theme,
-    createMediaQueries,
-    createTheme,
-    typography as gdsTypography,
-    useTheme as useGDSTheme,
-} from '@greensight/gds';
-
+import { ComponentsTheme, Theme, createMediaQueries, createTheme, useTheme as useGDSTheme } from '@greensight/gds';
 import tokens from '../../../public/tokens.json';
-import { Button } from './themes/button';
 import { global } from './themes/global';
 
-export const { colors, shadows } = tokens;
+const { colors, shadows } = tokens;
 export type ColorsTheme = typeof colors;
 export type TypographyParam = keyof typeof tokens.typography.styles;
-
-export const MEDIA_QUERIES = createMediaQueries(tokens.layout.breakpoints);
 
 export interface ExtendedTheme extends Omit<Theme, 'colors'> {
     components?: ComponentsTheme;
@@ -25,9 +13,6 @@ export interface ExtendedTheme extends Omit<Theme, 'colors'> {
 
 const settings: ExtendedTheme = {
     global,
-    components: {
-        Button,
-    },
 };
 
 const theme = createTheme({
@@ -35,8 +20,15 @@ const theme = createTheme({
     settings,
 }) as ExtendedTheme;
 
-const typography = (name: TypographyParam = 'bodySm') => gdsTypography(name, theme) as CSSObject;
+// const typography = (name: TypographyParam = 'body') => GDStypography(name, theme) as CSSObject;//todo
 const useTheme = () => useGDSTheme() as ExtendedTheme;
 
+const {
+    layout: { breakpoints },
+} = tokens;
+
+export const MEDIA_QUERIES = createMediaQueries(breakpoints);
+
 export * from '@greensight/gds';
-export { theme, typography, useTheme };
+// export { colors, shadows, theme, typography, useTheme };
+export { colors, shadows, theme, useTheme };

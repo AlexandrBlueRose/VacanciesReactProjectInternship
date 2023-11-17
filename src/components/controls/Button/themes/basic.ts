@@ -1,74 +1,143 @@
-import { ButtonTheme, OptionizedCSS, colors, extractCSSOption, scale, typography } from '../../../../scripts/gds/gds';
+import { OptionizedCSS, extractCSSOption, scale } from '@greensight/gds';
+import { MEDIA_QUERIES, colors, typography } from '../../../../scripts/gds/gds';
+import { Size, Variant } from '../enum';
+import { ButtonTheme } from '../types';
 
-// Конечный набор вариантов компонента
-export enum ButtonVariant {
-    primary = 'primary',
-    secondary = 'secondary',
-    outline = 'outline',
-    fill = 'fill',
-    ghost = 'ghost',
-    dangerous = 'dangerous',
-}
-
-// Конечный набор размеров компонента
-export enum ButtonSize {
-    sm = 'sm',
-    md = 'md',
-}
-
-// Определяем тему
-const basicTheme: ButtonTheme<typeof ButtonVariant, typeof ButtonSize> = {
+const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
     button: state => {
-        const sized: OptionizedCSS<typeof ButtonSize> = {
+        const size: OptionizedCSS<typeof Size> = {
             sm: {
                 padding: `${scale(1, true) + 0.5}px ${scale(1)}px`,
-                ...(typography('button') as any),
+                ...typography('buttonSm'),
             },
             md: {
-                // other dimensions..
+                padding: `${scale(2, true) + 0.5}px ${scale(4)}px`,
+                ...typography('buttonMd'),
+                [MEDIA_QUERIES.sm]: {
+                    margin: '0 auto',
+                },
+                [MEDIA_QUERIES.xs]: {
+                    width: '100%',
+                },
             },
         };
-
-        const varianted: OptionizedCSS<typeof ButtonVariant> = {
+        const variant: OptionizedCSS<typeof Variant> = {
             primary: {
-                backgroundColor: colors.primary,
+                backgroundColor: colors.blue,
                 color: colors.white,
+                size: 44,
                 ':hover': {
-                    backgroundColor: colors.primaryHover,
+                    backgroundColor: colors.blueHover,
                 },
                 ...(state.disabled && {
                     backgroundColor: colors.grey200,
                     color: colors.grey800,
                 }),
+                ...(state.rounded && {
+                    borderRadius: scale(1, true),
+                }),
+                ...(state.block && {
+                    width: '77%',
+                }),
             },
             secondary: {
-                // other colors...
+                backgroundColor: colors.grey900,
+                color: colors.white,
+                borderRadius: scale(1, true),
+                marginLeft: 'auto',
+                padding: `${scale(2)}px ${scale(4)}px`,
+                ...typography('desktop/button'),
+                ':hover': {
+                    backgroundColor: colors.black,
+                },
+                [MEDIA_QUERIES.sm]: {
+                    margin: `${scale(3)}px auto 0`,
+                },
+                [MEDIA_QUERIES.xs]: {
+                    width: '100%',
+                },
+            },
+            notactive: {
+                backgroundColor: colors.grey200,
+                color: colors.grey800,
+                size: 44,
+                ':hover': {
+                    backgroundColor: colors.blueHover,
+                },
+            },
+            link: {
+                backgroundColor: 'none',
+                color: colors.blue,
+                width: '20%',
+                textAlign: 'center',
+                margin: 'auto',
+                display: 'flex',
+                alignItems: 'start',
+                justifyContent: 'center',
+                gap: '0',
+                [MEDIA_QUERIES.md]: {
+                    width: '100%',
+                },
+                ...(state.hidden && {
+                    display: 'none',
+                }),
+                ...(state.block && {
+                    position: 'absolute',
+                    left: '0',
+                    top: scale(8),
+                    width: '100%',
+                    justifyContent: 'start',
+                    columnGap: scale(1),
+                    [MEDIA_QUERIES.sm]: {
+                        top: scale(17),
+                        right: 0,
+                        padding: 0,
+                    },
+                }),
             },
         };
 
         return {
-            /// common styles...
-            ...extractCSSOption(sized, state.size),
-            ...extractCSSOption(varianted, state.variant),
+            ...extractCSSOption(size, state.size),
+            ...extractCSSOption(variant, state.variant),
         };
     },
     icon: state => {
-        /// return styles..
+        const sized: OptionizedCSS<typeof Size> = {
+            sm: {
+                width: scale(2),
+                height: scale(2),
+                ...typography('buttonSm'),
+            },
+            md: {
+                padding: `${scale(1, true) + 0.5}px ${scale(1)}px`,
+                ...typography('buttonMd'),
+            },
+        };
+        const variant: OptionizedCSS<typeof Variant> = {
+            link: {
+                ...(state.rounded && {
+                    transform: 'rotate(180deg)',
+                }),
+            },
+            primary: {
+                display: 'none',
+            },
+            secondary: {
+                display: 'none',
+            },
+            notactive: {
+                display: 'none',
+            },
+        };
+
+        return {
+            ...extractCSSOption(sized, state.size),
+            ...extractCSSOption(variant, state.variant),
+        };
     },
 };
 
 export const BUTTON_THEMES = {
     basic: basicTheme,
-    // можно расширять для других разделов. можно выносить файл с темой в отдельный файл и переиспользовать
-    custom: {
-        ...basicTheme,
-        icon: state => {
-            const css = basicTheme.icon(state);
-
-            return {
-                ...css,
-                background: 'red', // перезаписываем лишь одно свойство для одного компонента из темы basic
-            };
-        },
-    },
 };

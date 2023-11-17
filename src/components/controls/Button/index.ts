@@ -1,42 +1,35 @@
-import { ButtonProps, EnumLike, useThemeCSS } from '@greensight/gds';
-import { useMemo } from 'react';
+import { CSSObject } from '@emotion/core';
+import { createFutureButtonWithTheme } from '@greensight/gds';
+import { Size, Variant } from './enum';
+import { BUTTON_THEMES } from './themes/basic';
 
-export const BaseButton = <V extends EnumLike, S extends EnumLike>(
-    {
-        children,
-        block = false,
-        theme, // theme, variant, size будут
-        size, // будет типизированы дальше, поэтому не имеют значения по-умолчанию
-        variant,
-        Icon,
-        iconAfter = false, // важно дать значения по-умолчанию для параметров состояния,
-        hidden = false, // чтобы избежать null check внутри темы
-        type = 'button',
-        external = false,
-        disabled = false,
-        rounded = true,
-        css,
-        ...props
-    }: ButtonProps<V, S>,
-    ref: Ref<HTMLButtonElement>
-) => {
-    const state = useMemo<ButtonStateFull<V, S>>(
-        () => ({
-            disabled,
-            hasChildren,
-            hidden,
-            size,
-            variant,
-            block,
-            iconAfter,
-            rounded,
-        }),
-        [block, disabled, hasChildren, hidden, iconAfter, size, variant, rounded]
-    );
+function custonTypography(
+    name:
+        | 'buttonLg'
+        | 'buttonMd'
+        | 'buttonSm'
+        | 'captionUppercase'
+        | 'caption'
+        | 'smallBold'
+        | 'small'
+        | 'bodyBold'
+        | 'body'
+        | 'subheading'
+        | 'title'
+        | 'headline'
+        | 'h4'
+        | 'h3'
+        | 'h2'
+        | 'h1'
+): CSSObject {
+    throw new Error(`Function not implemented. name: ${name}`);
+}
 
-    if (!theme) {
-        throw new Error('[Button] theme is required');
-    }
+const Button = createFutureButtonWithTheme<typeof Variant, typeof Size, any>(
+    BUTTON_THEMES.basic,
+    Variant.primary,
+    Size.sm,
+    custonTypography
+);
 
-    const { button: totalCSS, icon: iconCSS } = useThemeCSS(theme!, state);
-};
+export default Button;

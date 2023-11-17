@@ -1,14 +1,10 @@
-import Head from 'next/head';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import MainVacanciesPage from '@views/homePage';
+import { NextPage } from 'next';
 import { useState } from 'react';
 import { ThemeProvider, theme } from '../scripts/gds/gds';
 
-interface AppProvidersProps {
-    children: ReactNode;
-}
-
-export default function Home({ children }: AppProvidersProps) {
+const HomePage: NextPage = () => {
     const [queryClient] = useState(
         () =>
             new QueryClient({
@@ -21,14 +17,14 @@ export default function Home({ children }: AppProvidersProps) {
                 },
             })
     );
+
     return (
         <ThemeProvider theme={theme}>
             <QueryClientProvider client={queryClient}>
-                <Head>
-                    <title>Test</title>
-                </Head>
-                <main>Hello world</main>
+                <MainVacanciesPage />
             </QueryClientProvider>
         </ThemeProvider>
     );
-}
+};
+
+export default HomePage;
