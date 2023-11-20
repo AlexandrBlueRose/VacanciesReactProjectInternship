@@ -1,5 +1,13 @@
-import { ComponentsTheme, Theme, createMediaQueries, createTheme, useTheme as useGDSTheme } from '@greensight/gds';
-import tokens from '../../../public/tokens.json';
+import { CSSObject } from '@emotion/core';
+import {
+    ComponentsTheme,
+    typography as GDStypography,
+    Theme,
+    createMediaQueries,
+    createTheme,
+    useTheme as useGDSTheme,
+} from '@greensight/gds';
+import tokens from '@public/tokens.json';
 import { global } from './themes/global';
 
 const { colors, shadows } = tokens;
@@ -20,7 +28,7 @@ const theme = createTheme({
     settings,
 }) as ExtendedTheme;
 
-// const typography = (name: TypographyParam = 'body') => GDStypography(name, theme) as CSSObject;//todo
+const typography = (name: TypographyParam = 'm') => GDStypography(name, theme) as CSSObject;
 const useTheme = () => useGDSTheme() as ExtendedTheme;
 
 const {
@@ -30,5 +38,4 @@ const {
 export const MEDIA_QUERIES = createMediaQueries(breakpoints);
 
 export * from '@greensight/gds';
-// export { colors, shadows, theme, typography, useTheme };
-export { colors, shadows, theme, useTheme };
+export { colors, shadows, theme, typography, useTheme };

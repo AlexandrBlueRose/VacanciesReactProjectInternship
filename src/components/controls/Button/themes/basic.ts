@@ -1,43 +1,28 @@
 import { OptionizedCSS, extractCSSOption, scale } from '@greensight/gds';
-import { MEDIA_QUERIES, colors, typography } from '../../../../scripts/gds/gds';
+import { MEDIA_QUERIES, colors, typography } from 'src/scripts/gds/gds';
 import { Size, Variant } from '../enum';
 import { ButtonTheme } from '../types';
 
 const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
     button: state => {
-        const size: OptionizedCSS<typeof Size> = {
-            sm: {
-                padding: `${scale(1, true) + 0.5}px ${scale(1)}px`,
-                ...typography('buttonSm'),
-            },
-            md: {
-                padding: `${scale(2, true) + 0.5}px ${scale(4)}px`,
-                ...typography('buttonMd'),
-                [MEDIA_QUERIES.sm]: {
-                    margin: '0 auto',
-                },
-                [MEDIA_QUERIES.xs]: {
-                    width: '100%',
-                },
-            },
-        };
         const variant: OptionizedCSS<typeof Variant> = {
             primary: {
                 backgroundColor: colors.blue,
                 color: colors.white,
-                size: 44,
+                height: 44,
+                width: 'max-content',
+                borderRadius: scale(1, true),
+                padding: `${scale(1)}px ${scale(4)}px`,
+                ...typography('xs'),
                 ':hover': {
                     backgroundColor: colors.blueHover,
+                },
+                [MEDIA_QUERIES.xs]: {
+                    width: '100%',
                 },
                 ...(state.disabled && {
                     backgroundColor: colors.grey200,
                     color: colors.grey800,
-                }),
-                ...(state.rounded && {
-                    borderRadius: scale(1, true),
-                }),
-                ...(state.block && {
-                    width: '77%',
                 }),
             },
             secondary: {
@@ -46,7 +31,7 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                 borderRadius: scale(1, true),
                 marginLeft: 'auto',
                 padding: `${scale(2)}px ${scale(4)}px`,
-                ...typography('desktop/button'),
+                ...typography('xs'),
                 ':hover': {
                     backgroundColor: colors.black,
                 },
@@ -60,7 +45,7 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
             notactive: {
                 backgroundColor: colors.grey200,
                 color: colors.grey800,
-                size: 44,
+                height: 44,
                 ':hover': {
                     backgroundColor: colors.blueHover,
                 },
@@ -98,7 +83,6 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
         };
 
         return {
-            ...extractCSSOption(size, state.size),
             ...extractCSSOption(variant, state.variant),
         };
     },
@@ -107,11 +91,11 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
             sm: {
                 width: scale(2),
                 height: scale(2),
-                ...typography('buttonSm'),
+                ...typography('s'),
             },
             md: {
                 padding: `${scale(1, true) + 0.5}px ${scale(1)}px`,
-                ...typography('buttonMd'),
+                ...typography('xs'),
             },
         };
         const variant: OptionizedCSS<typeof Variant> = {

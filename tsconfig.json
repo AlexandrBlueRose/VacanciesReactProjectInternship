@@ -21,7 +21,16 @@
         "baseUrl": ".",
         "paths": {
             "@components/*": ["src/components/*"],
-            "@views/*": ["src/views/*"]
+            "@views/*": ["src/views/*"],
+            "@public/*": ["public/*"],
+            "@context/*": ["src/context/*"],
+            "@api/*": ["src/api/*"],
+            "@containers/*": ["src/containers/*"],
+            "@types/*": ["src/types/*"],
+            "@script/*": ["src/script/*"],
+            "@images/*": ["src/images/*"],
+            "@icons/*": ["src/icons/*"],
+            "@fonts/*": ["src/fonts/*"]
         },
         "incremental": true,
         "plugins": [

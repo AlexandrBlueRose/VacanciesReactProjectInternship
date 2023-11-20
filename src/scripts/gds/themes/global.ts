@@ -1,4 +1,4 @@
-import tokens from '../../../../public/tokens.json';
+import tokens from '@public/tokens.json';
 
 export const global = {
     base: {
@@ -10,12 +10,12 @@ export const global = {
         },
         focus: {
             width: 2,
-            color: tokens.colors.brand,
+            color: tokens.colors.black,
             offset: 2,
         },
         selection: {
             color: tokens.colors.white,
-            bg: tokens.colors.brand,
+            bg: tokens.colors.black,
         },
     },
     fonts: {
@@ -43,7 +43,7 @@ export const global = {
             {
                 '@font-face': {
                     fontFamily: 'Roboto',
-                    src: 'url("../../../fonts/Roboto-Bold.woff2") format("woff2"), url("../../../onts/Roboto-Bold.woff") format("woff")',
+                    src: 'url("../../../fonts/Roboto-Bold.woff2") format("woff2"), url("../../../fonts/Roboto-Bold.woff") format("woff")',
                     fontDisplay: 'swap',
                     fontWeight: 700,
                 },
