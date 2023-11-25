@@ -26,7 +26,7 @@
             "@context/*": ["src/context/*"],
             "@api/*": ["src/api/*"],
             "@containers/*": ["src/containers/*"],
-            "@types/*": ["src/types/*"],
+            "@GlobalTypes/*": ["src/types/*"],
             "@script/*": ["src/script/*"],
             "@images/*": ["src/images/*"],
             "@icons/*": ["src/icons/*"],
