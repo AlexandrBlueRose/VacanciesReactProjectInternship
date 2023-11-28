@@ -29,8 +29,7 @@
             "@GlobalTypes/*": ["src/types/*"],
             "@script/*": ["src/script/*"],
             "@images/*": ["src/images/*"],
-            "@icons/*": ["src/icons/*"],
-            "@fonts/*": ["src/fonts/*"]
+            "@icons/*": ["src/icons/*"]
         },
         "incremental": true,
         "plugins": [

@@ -57,7 +57,6 @@ const Footer: FC = () => (
                                     gap: `${scale(1)}px`,
                                     '&:before': {
                                         // todo
-                                        content: '',
                                         position: 'absolute',
                                         height: '1px',
                                         opacity: 0.2,

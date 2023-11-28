@@ -4,8 +4,8 @@ export const filterData: IFilter = {
     filterSelect: [
         {
             title: 'Form',
-            dataEventual: 'NotSelected',
-            dataPreliminary: 'NotSelected',
+            dataEventual: 'Not selected',
+            dataPreliminary: 'Not selected',
             dataKey: 'employment',
             keyApi: [
                 {
@@ -30,8 +30,8 @@ export const filterData: IFilter = {
         },
         {
             title: 'Experience',
-            dataEventual: 'NotSelected',
-            dataPreliminary: 'NotSelected',
+            dataEventual: 'Not selected',
+            dataPreliminary: 'Not selected',
             dataKey: 'experience',
             keyApi: [
                 {

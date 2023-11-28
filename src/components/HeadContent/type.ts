@@ -1,5 +1,5 @@
 interface ISeoMain {
-    title?: string;
+    title: string;
     description: string;
     favicon: string;
     keywords: string;

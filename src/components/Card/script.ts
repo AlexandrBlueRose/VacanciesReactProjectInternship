@@ -7,10 +7,10 @@ export const cardDataCompletion = (data: IItem): IVacancies => ({
     description: data?.description ? data?.description : 'Loading...',
     classOption: true,
     conditions: {
-        form: data?.employment ? data.employment.name : 'Not Selected',
-        company: data?.employer?.name ? data.employer.name : 'Not Selected',
-        web: data?.employer?.alternate_url ? data.employer.alternate_url : 'Not Selected',
-        address: data?.area?.name ? data.area.name : 'Not Selected',
+        form: data?.employment ? data.employment.name : 'Not selected',
+        company: data?.employer?.name ? data.employer.name : 'Not selected',
+        web: data?.employer?.alternate_url ? data.employer.alternate_url : 'Not selected',
+        address: data?.area?.name ? data.area.name : 'Not selected',
     },
     logoUrl: data.employer?.logo_urls?.['240'],
 });

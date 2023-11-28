@@ -1,5 +1,8 @@
-import { Container, scale, typography } from '@greensight/gds';
+'use client';
+
+import { Container, scale } from '@greensight/gds';
 import { FC, PropsWithChildren } from 'react';
+import { typography } from 'src/scripts/gds/gds';
 import { IHeadingProp } from 'src/types/types';
 
 const Header: FC<PropsWithChildren<IHeadingProp>> = props => {
@@ -7,11 +10,11 @@ const Header: FC<PropsWithChildren<IHeadingProp>> = props => {
 
     if (heading) {
         return (
-            <header>
-                <Container css={{ padding: '0 20px' }}>
+            <header css={{ paddingTop: `${scale(8)}px`, paddingBottom: `${scale(6)}px` }}>
+                <Container>
                     <h1
                         css={{
-                            padding: `${scale(8)}px 0 ${scale(6)}px 0`,
+                            paddingBottom: `${scale(5)}px`,
                             margin: 0,
                             ...typography('h1'),
                         }}

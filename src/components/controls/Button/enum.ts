@@ -3,6 +3,7 @@ export enum Variant {
     secondary = 'secondary',
     link = 'link',
     notactive = 'notactive',
+    linkFilter = 'linkFilter',
 }
 
 export enum Size {

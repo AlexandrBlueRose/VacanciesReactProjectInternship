@@ -52,7 +52,7 @@ const CardList: FC<cardProps> = props => {
 
     const cardsPreloadLength = cardPreload.length;
 
-    if (cardsPreloadLength > 5) {
+    if (cardsPreloadLength > PER_PAGE) {
         dataCards = [
             ...onLoad(data || []).slice(0, cardsPreloadLength - PER_PAGE),
             ...cardPreload.slice(cardsPreloadLength - PER_PAGE),

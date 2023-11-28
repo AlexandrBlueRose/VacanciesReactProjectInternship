@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
+'use client';
+
 import { CSSObject } from '@emotion/core';
 import { scale } from '@greensight/gds';
 import { FC, MouseEventHandler, useEffect, useRef } from 'react';
@@ -45,7 +49,7 @@ const Option: FC<OptionProps> = props => {
         return () => {
             option.removeEventListener('keydown', handleEnterKeyDown);
         };
-    }, [value, onClick]);
+    }, [value, onClick, key]);
 
     return (
         <div>
@@ -60,7 +64,7 @@ const Option: FC<OptionProps> = props => {
                     padding: `${scale(1)}px ${scale(3, true)}px`,
                     height: `${scale(5)}px`,
                     color: colors.black,
-                    ...typography('small'),
+                    ...typography('s'),
                 }}
             >
                 {value}

@@ -6,7 +6,7 @@ const withSvgr = require('next-plugin-svgr');
 const nextConfig = {
     images: {
         dangerouslyAllowSVG: true,
-        domains: ['hhcdn.ru'],
+        domains: ['hhcdn.ru', 'clck.ru'],
     },
     swcMinify: true,
     compiler: {

@@ -1,37 +1,21 @@
-import { Layout } from '@greensight/gds';
-import { FC } from 'react';
-import Input from '../Input';
+'use client';
 
-export type typeInput =
-    | 'text'
-    | 'textarea'
-    | 'submit'
-    | 'image'
-    | 'reset'
-    | 'hidden'
-    | 'password'
-    | 'file'
-    | 'checkbox'
-    | 'radio'
-    | 'button'
-    | 'tel'
-    | 'email'
-    | 'url';
+import { Layout } from '@greensight/gds';
+import { FC, PropsWithChildren } from 'react';
 
 interface LabelData {
     labelText: string;
-    type: typeInput;
-    placeholder?: string;
+    htmlFor?: string;
 }
 
-const Label: FC<LabelData> = props => {
-    const { labelText, type, placeholder } = props;
+const Label: FC<PropsWithChildren<LabelData>> = props => {
+    const { labelText, htmlFor, children } = props;
     return (
         <Layout type="flex" direction="column">
-            <Layout.Item>{labelText}</Layout.Item>
             <Layout.Item>
-                <Input type={type} placeholder={placeholder} />
+                <label htmlFor={htmlFor || ''}>{labelText}</label>
             </Layout.Item>
+            <Layout.Item>{children}</Layout.Item>
         </Layout>
     );
 };

@@ -30,7 +30,8 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                 color: colors.white,
                 borderRadius: scale(1, true),
                 marginLeft: 'auto',
-                padding: `${scale(2)}px ${scale(4)}px`,
+                padding: `${scale(1)}px ${scale(4)}px`,
+                height: `${scale(6) - 4}px`,
                 ...typography('xs'),
                 ':hover': {
                     backgroundColor: colors.black,
@@ -60,6 +61,37 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                 alignItems: 'start',
                 justifyContent: 'center',
                 gap: '0',
+                ...typography('m'),
+                [MEDIA_QUERIES.md]: {
+                    width: '100%',
+                },
+                ...(state.hidden && {
+                    display: 'none',
+                }),
+                ...(state.block && {
+                    position: 'absolute',
+                    left: '0',
+                    top: scale(8),
+                    width: '100%',
+                    justifyContent: 'start',
+                    columnGap: scale(1),
+                    [MEDIA_QUERIES.sm]: {
+                        top: scale(17),
+                        right: 0,
+                        padding: 0,
+                    },
+                }),
+            },
+            linkFilter: {
+                backgroundColor: 'none',
+                color: colors.blue,
+                width: 'max-content',
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'start',
+                justifyContent: 'center',
+                gap: '0',
+                ...typography('m'),
                 [MEDIA_QUERIES.md]: {
                     width: '100%',
                 },

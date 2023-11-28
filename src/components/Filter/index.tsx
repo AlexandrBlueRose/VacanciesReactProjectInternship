@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@components/controls/Button';
 import { Variant } from '@components/controls/Button/enum';
 import { OptionData } from '@components/controls/Option';
@@ -6,7 +8,6 @@ import { useCart } from '@context/cardLoadingContext/CardProvider';
 import { Layout, scale } from '@greensight/gds';
 import router from 'next/router';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
-import { useQueryClient } from 'react-query';
 
 export type keyApi = {
     key: string;
@@ -36,9 +37,7 @@ export interface IFilter {
 
 const Filter: FC<IFilter> = props => {
     const { filterSelect } = props;
-    const { filtersContext, setFiltersContext, changeFiltersById, isSearch, setSearch, filtersS, setFiltersS } =
-        useCart();
-    const { resetQueries, removeQueries, refetchQueries } = useQueryClient();
+    const { filtersContext, setFiltersContext, changeFiltersById, isSearch, setSearch, setFiltersS } = useCart();
     const [selectClear, setSelectClear] = useState(false);
     const [filterFolder, setFilterFolder] = useState<keyApi[]>();
     const resetPathUrl = () => {
@@ -92,32 +91,36 @@ const Filter: FC<IFilter> = props => {
         <Layout
             type="grid"
             align="end"
-            cols={{ xxxl: `repeat(auto-fit, minmax(0.4558333333%, ${scale(68.375) + 3}px))` }}
+            cols={{ xxxl: `repeat(auto-fit, minmax(0.4558333333%, ${scale(68) + 3}px))` }}
             gap={{ xxxl: [scale(2), scale(4)], md: scale(3) }}
         >
             <Layout gap={scale(2)} cols="repeat(auto-fit, minmax(262px, 1fr))" align="start">
                 {filterSelect.map(itemFilter => (
-                    <Select
-                        keyApi={...itemFilter.keyApi}
-                        dataEventual={itemFilter.dataEventual}
-                        dataKey={itemFilter.dataKey}
-                        dataPreliminary={itemFilter.dataPreliminary}
-                        title={itemFilter.title}
-                        key={itemFilter.dataKey}
-                        filtersContext={filtersContext}
-                        filterContextChange={setFiltersContext}
-                        changeFiltersById={changeFiltersById}
-                        selectClear={selectClear}
-                        setSelectClear={setSelectClear}
-                    />
+                    <Layout.Item key={itemFilter.dataKey}>
+                        <Select
+                            keyApi={...itemFilter.keyApi}
+                            dataEventual={itemFilter.dataEventual}
+                            dataKey={itemFilter.dataKey}
+                            dataPreliminary={itemFilter.dataPreliminary}
+                            title={itemFilter.title}
+                            key={itemFilter.dataKey}
+                            filtersContext={filtersContext}
+                            filterContextChange={setFiltersContext}
+                            changeFiltersById={changeFiltersById}
+                            selectClear={selectClear}
+                            setSelectClear={setSelectClear}
+                        />
+                    </Layout.Item>
                 ))}
             </Layout>
             <Button variant={Variant.primary} onClick={onSearch}>
                 Search
             </Button>
-            <Button variant={Variant.primary} onClick={onClear}>
-                Clear
-            </Button>
+            {(filterFolder?.length || 0) > 0 ? (
+                <Button variant={Variant.linkFilter} onClick={onClear} css={{ width: 'max-content' }}>
+                    Clear filters
+                </Button>
+            ) : null}
         </Layout>
     );
 };

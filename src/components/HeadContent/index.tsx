@@ -5,10 +5,9 @@ const HeadContent: FC<IHead> = props => {
     const { title, description, author, keywords, favicon, social } = props;
     return (
         <>
-            <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>{title}</title>
+            <title>{title || 'Title not found'}</title>
 
             <meta name="format-detection" content="telephone=no" />
             <meta name="description" content={description} />

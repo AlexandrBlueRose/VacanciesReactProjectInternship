@@ -11,20 +11,18 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { UseQueryResult } from 'react-query';
 
-const HomePage: NextPage = prop => {
-    const { filtersContext, setFiltersContext, changeFiltersById, isSearch, filtersS, setFiltersS } = useCart();
+const HomePage: NextPage = () => {
+    const { filtersS } = useCart();
     const router = useRouter();
-    const { data, fetchNextPage, status, refetch } = useVacancies(filtersS || [], []);
-    console.log(data);
+    const { data, fetchNextPage } = useVacancies(filtersS || [], []);
     const requestData: IItem[][] | undefined = data?.pages.map(items => items.items);
     let dataCards: UseQueryResult<IItem, unknown>[] = [];
     dataCards = useLoadData(requestData || [[]]);
     useEffect(() => {
-        // Предварительно загружаем страницу профиля
         router.prefetch(
             `${router.basePath}?per_page=${PER_PAGE}&page=${data?.pages[data.pages.length - 1].page || 0 + 1}`
         );
-    }, []);
+    }, [data?.pages, router]);
     const onLoadCards = () => {
         const lastPageNum = (data?.pages[data.pages.length - 1].page || 0) + 1;
         router.push(

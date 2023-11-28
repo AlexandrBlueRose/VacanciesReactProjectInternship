@@ -1,8 +1,15 @@
+'use client';
+
 import Button from '@components/controls/Button';
 import { Variant } from '@components/controls/Button/enum';
+import ErrorLabel from '@components/controls/ErrorLabel';
+import Input from '@components/controls/Input';
 import Label from '@components/controls/Label';
+import Legend from '@components/controls/Legend';
 import { Layout, scale } from '@greensight/gds';
+import { useFormik } from 'formik';
 import { FC } from 'react';
+import * as Yup from 'yup';
 
 interface FormControl {
     legend: string;
@@ -11,6 +18,26 @@ interface FormControl {
 
 const Form: FC<FormControl> = props => {
     const { legend, description } = props;
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+            phone: '',
+            comment: '',
+        },
+        validationSchema: Yup.object({
+            name: Yup.string().min(2, 'Name is to short').max(15, 'Name is to long').required('Name is required'),
+            email: Yup.string().email('Invalid email address').required('Email is required'),
+            phone: Yup.string().min(16, 'Phone number is not valid').required('Phone required'),
+            comment: Yup.string().max(200, 'Comment is to long'),
+        }),
+        onSubmit: values => {
+            alert(
+                `Sent name: ${values.name}\nSent email: ${values.email}\nSent phone: ${values.phone}\nSent comment: ${values.comment}`
+            );
+        },
+    });
     return (
         <Layout
             type="flex"
@@ -22,7 +49,7 @@ const Form: FC<FormControl> = props => {
                 gap: `${scale(2)}px`,
             }}
         >
-            <form css={{ marginBottom: `${scale(2)}px` }}>
+            <form css={{ marginBottom: `${scale(2)}px` }} onSubmit={formik.handleSubmit}>
                 <Layout.Item>
                     <fieldset
                         css={{
@@ -34,16 +61,70 @@ const Form: FC<FormControl> = props => {
                             border: 'none',
                         }}
                     >
-                        <legend>{legend}</legend>
-                        <p>{description}</p>
-                        <Label labelText="Your name" type="text" placeholder="Please introduce yourself" />
-                        <Label labelText="Email" type="text" placeholder="ivanov@gmail.com" />
-                        <Label labelText="Phone number" type="text" placeholder="+7 (123) 456 7891" />
-                        <Label labelText="Comment" type="textarea" placeholder="Message text" />
+                        <Legend legend={legend} description={description} />
+                        <Label htmlFor="name" labelText="Your name">
+                            <Input
+                                type="text"
+                                placeholder="Please enter name"
+                                id="name"
+                                name="name"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.name}
+                            />
+                            {formik.touched.name && formik.errors.name ? (
+                                <ErrorLabel errorMessage={formik.errors.name} />
+                            ) : null}
+                        </Label>
+                        <Label htmlFor="email" labelText="Email">
+                            <Input
+                                type="text"
+                                placeholder="ivanov@gmail.com"
+                                id="email"
+                                name="email"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.email}
+                            />
+                            {formik.touched.email && formik.errors.email ? (
+                                <ErrorLabel errorMessage={formik.errors.email} />
+                            ) : null}
+                        </Label>
+                        <Label htmlFor="phone" labelText="Phone number">
+                            <Input
+                                type="text"
+                                placeholder="+7 (123) 456 7891"
+                                mask="+9 (999) 999 999"
+                                id="phone"
+                                name="phone"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.phone}
+                            />
+                            {formik.touched.phone && formik.errors.phone ? (
+                                <ErrorLabel errorMessage={formik.errors.phone} />
+                            ) : null}
+                        </Label>
+                        <Label htmlFor="comment" labelText="Comment">
+                            <Input
+                                type="textarea"
+                                placeholder="Message text"
+                                id="comment"
+                                name="comment"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.comment}
+                            />
+                            {formik.touched.comment && formik.errors.comment ? (
+                                <ErrorLabel errorMessage={formik.errors.comment} />
+                            ) : null}
+                        </Label>
                     </fieldset>
                 </Layout.Item>
                 <Layout.Item>
-                    <Button variant={Variant.primary}>Send</Button>
+                    <Button variant={Variant.primary} type="submit">
+                        Send
+                    </Button>
                 </Layout.Item>
             </form>
         </Layout>

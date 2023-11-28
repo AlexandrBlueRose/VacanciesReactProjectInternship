@@ -1,5 +1,4 @@
 import { keyApi } from '@components/Filter';
-import { useCart } from '@context/cardLoadingContext/CardProvider';
 import { useInfiniteQuery, useQueries } from 'react-query';
 import { MAX_PAGE, PER_PAGE } from './config/api.config';
 import { VacanciesService } from './services/vacancies.service';
@@ -13,8 +12,7 @@ export const useVacanciesFull = (items: IItem[]) =>
         }))
     );
 
-export const useVacancies = (filter: keyApi[], prerenderData?: IItem[]) => {
-    const { filtersS } = useCart();
+export const useVacancies = (filter: keyApi[]) => {
     const fetchProjects = async ({ pageParam = 1 }) =>
         VacanciesService.getAllVacancies(pageParam, PER_PAGE, filter).then(results => results.data);
     const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, refetch } =
@@ -36,14 +34,3 @@ export const useLoadData = (cards: IItem[][]) => {
     const requestFullData = useVacanciesFull(cardsArray);
     return requestFullData;
 };
-
-export async function getServerSideProps() {
-    // Fetch data from an API or perform any asynchronous operation
-    const { data } = await VacanciesService.getAllVacancies(1, 5, []);
-    // Pass the fetched data as props to the component
-    return {
-        props: {
-            data,
-        },
-    };
-}
