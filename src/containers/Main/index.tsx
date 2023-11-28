@@ -7,7 +7,7 @@ import CardList from '@views/component/CardList';
 import { MainPageProps } from '@views/homePage';
 import Link from 'next/link';
 import { FC } from 'react';
-import { colors } from 'src/scripts/gds/gds';
+import { colors, typography } from 'src/scripts/gds/gds';
 
 const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
     <main css={{ marginTop: 100 }}>
@@ -39,10 +39,16 @@ const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
             css={{ backgroundColor: colors.grey100, paddingTop: `${scale(8)}px` }}
         >
             <Form legend="Leave a request" description="We will advise you and help you start a new project" />
-            <div css={{ textAlign: 'center', paddingBottom: `clamp(${scale(4)}px , 10%, ${scale(13)}px)` }}>
+            <div
+                css={{
+                    textAlign: 'center',
+                    paddingBottom: `clamp(${scale(4)}px , 10%, ${scale(13)}px)`,
+                    ...typography('m'),
+                }}
+            >
                 By clicking "Send" you confirm your consent to the
                 <br />
-                <Link href="" color={colors.blue} css={{ textDecoration: 'none', border: 0 }}>
+                <Link href="" css={{ textDecoration: 'none', border: 0, color: colors.blue }}>
                     processing of personal data
                 </Link>
             </div>

@@ -11,12 +11,14 @@ const onLoad = (requestFullData: UseQueryResult<IItem, unknown>[]) => {
         if (item.data !== undefined) {
             return cardDataCompletion(item.data);
         }
+        return [];
     });
 
     const ret = cardCompletion.map(item => {
         if (item !== undefined) {
             return <Card card={item} key={item.id} />;
         }
+        return [];
     });
     return ret;
 };
@@ -26,12 +28,14 @@ const onPreLoad = (requestFullData: IItem[]) => {
         if (item !== undefined) {
             return cardDataCompletion(item);
         }
+        return [];
     });
 
     const ret = cardCompletion.map(item => {
         if (item !== undefined) {
             return <Card card={item} key={item.id} />;
         }
+        return [];
     });
     return ret;
 };

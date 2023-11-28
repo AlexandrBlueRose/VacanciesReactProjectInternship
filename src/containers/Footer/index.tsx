@@ -1,7 +1,7 @@
 import { Container, Layout, scale } from '@greensight/gds';
 import Link from 'next/link';
 import { FC } from 'react';
-import { colors } from 'src/scripts/gds/gds';
+import { colors, typography } from 'src/scripts/gds/gds';
 
 const Footer: FC = () => (
     <footer css={{ backgroundColor: colors.grey900 }}>
@@ -24,6 +24,7 @@ const Footer: FC = () => (
                             gap: `${scale(1)}px`,
                             height: 'auto',
                             marginRight: 'auto',
+                            ...typography('l'),
                         }}
                     >
                         <Layout.Item>
@@ -42,6 +43,7 @@ const Footer: FC = () => (
                         css={{
                             gap: `${scale(1)}px`,
                             height: 'auto',
+                            ...typography('m'),
                         }}
                     >
                         <Layout.Item
@@ -56,7 +58,6 @@ const Footer: FC = () => (
                                     flexDirection: 'column',
                                     gap: `${scale(1)}px`,
                                     '&:before': {
-                                        // todo
                                         position: 'absolute',
                                         height: '1px',
                                         opacity: 0.2,

@@ -49,6 +49,19 @@ const Input: FC<InputData> = props => {
                 background: `${colors.white}`,
                 color: `${colors.grey600}`,
                 textAlign: `left`,
+                width: '100%',
+                marginTop: `${scale(1, true)}px`,
+                ':focus': {
+                    outline: 'none',
+                    boxShadow: 'none',
+                    border: `1px solid ${colors.blue}`,
+                },
+                ':invalid(:placeholder-shown)': {
+                    borderColor: 'red',
+                },
+                ':valid:not(:placeholder-shown)': {
+                    borderColor: 'green',
+                },
             }}
         />
     );

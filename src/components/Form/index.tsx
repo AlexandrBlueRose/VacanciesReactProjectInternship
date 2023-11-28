@@ -6,6 +6,7 @@ import ErrorLabel from '@components/controls/ErrorLabel';
 import Input from '@components/controls/Input';
 import Label from '@components/controls/Label';
 import Legend from '@components/controls/Legend';
+import { CSSObject } from '@emotion/core';
 import { Layout, scale } from '@greensight/gds';
 import { useFormik } from 'formik';
 import { FC } from 'react';
@@ -38,6 +39,11 @@ const Form: FC<FormControl> = props => {
             );
         },
     });
+    const labelStyle: CSSObject = {
+        width: `clamp(${scale(35)}px, 100%, ${scale(75)}px)`,
+        textAlign: 'start',
+    };
+
     return (
         <Layout
             type="flex"
@@ -49,7 +55,7 @@ const Form: FC<FormControl> = props => {
                 gap: `${scale(2)}px`,
             }}
         >
-            <form css={{ marginBottom: `${scale(2)}px` }} onSubmit={formik.handleSubmit}>
+            <form css={{ marginBottom: `${scale(2)}px`, ...labelStyle }} onSubmit={formik.handleSubmit}>
                 <Layout.Item>
                     <fieldset
                         css={{
@@ -62,7 +68,7 @@ const Form: FC<FormControl> = props => {
                         }}
                     >
                         <Legend legend={legend} description={description} />
-                        <Label htmlFor="name" labelText="Your name">
+                        <Label htmlFor="name" labelText="Your name" css={labelStyle}>
                             <Input
                                 type="text"
                                 placeholder="Please enter name"
@@ -76,7 +82,7 @@ const Form: FC<FormControl> = props => {
                                 <ErrorLabel errorMessage={formik.errors.name} />
                             ) : null}
                         </Label>
-                        <Label htmlFor="email" labelText="Email">
+                        <Label htmlFor="email" labelText="Email" css={labelStyle}>
                             <Input
                                 type="text"
                                 placeholder="ivanov@gmail.com"
@@ -90,7 +96,7 @@ const Form: FC<FormControl> = props => {
                                 <ErrorLabel errorMessage={formik.errors.email} />
                             ) : null}
                         </Label>
-                        <Label htmlFor="phone" labelText="Phone number">
+                        <Label htmlFor="phone" labelText="Phone number" css={labelStyle}>
                             <Input
                                 type="text"
                                 placeholder="+7 (123) 456 7891"
@@ -105,7 +111,7 @@ const Form: FC<FormControl> = props => {
                                 <ErrorLabel errorMessage={formik.errors.phone} />
                             ) : null}
                         </Label>
-                        <Label htmlFor="comment" labelText="Comment">
+                        <Label htmlFor="comment" labelText="Comment" css={labelStyle}>
                             <Input
                                 type="textarea"
                                 placeholder="Message text"
@@ -121,7 +127,7 @@ const Form: FC<FormControl> = props => {
                         </Label>
                     </fieldset>
                 </Layout.Item>
-                <Layout.Item>
+                <Layout.Item css={{ textAlign: 'center' }}>
                     <Button variant={Variant.primary} type="submit">
                         Send
                     </Button>
