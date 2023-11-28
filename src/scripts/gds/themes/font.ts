@@ -13,11 +13,12 @@ export const roboto = localFont({
             style: 'normal',
         },
         {
-            path: '../../../fonts/Roboto/Roboto-Regular.woff2',
+            path: '../../../fonts/Roboto/Roboto-Bold.woff2',
             weight: '700',
             style: 'normal',
         },
     ],
     preload: true,
     display: 'swap',
+    variable: '--Roboto',
 });

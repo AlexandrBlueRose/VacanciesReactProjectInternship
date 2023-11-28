@@ -6,7 +6,12 @@ const withSvgr = require('next-plugin-svgr');
 const nextConfig = {
     images: {
         dangerouslyAllowSVG: true,
-        domains: ['hhcdn.ru', 'clck.ru'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'hhcdn.ru',
+            },
+        ],
     },
     swcMinify: true,
     compiler: {

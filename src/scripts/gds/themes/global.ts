@@ -20,23 +20,18 @@ export const global = {
         },
     },
     fonts: {
-        families: {
-            Roboto: {
-                stack: '-apple-system, "Roboto", BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-            },
-        },
         fontFace: [
             {
                 '@font-face': {
                     fontFamily: 'Roboto',
-                    src: 'url("src/fonts/Roboto/Roboto-Regular.woff2") format("woff2"), url("src/fonts/Roboto/Roboto-Regular.woff") format("woff")',
+                    src: 'url(/_next/static/media/4e7449338f3a9fee-s.p.woff2) format("woff2")',
                     fontDisplay: 'swap',
                 },
             },
             {
                 '@font-face': {
                     fontFamily: 'Roboto',
-                    src: 'url("src/fonts/Roboto/Roboto-Medium.woff2") format("woff2"), url("src/fonts/Roboto/Roboto-Medium.woff") format("woff")',
+                    src: 'url(/_next/static/media/f8693cca22ae31bc-s.p.woff2) format("woff2")',
                     fontDisplay: 'swap',
                     fontWeight: 500,
                 },
@@ -44,7 +39,7 @@ export const global = {
             {
                 '@font-face': {
                     fontFamily: 'Roboto',
-                    src: 'url("src/fonts/Roboto/Roboto-Bold.woff2") format("woff2"), url("src/fonts/Roboto/Roboto-Bold.woff") format("woff")',
+                    src: 'url(/_next/static/media/2a63183e6dff7d00-s.p.woff2) format("woff2")',
                     fontDisplay: 'swap',
                     fontWeight: 700,
                 },

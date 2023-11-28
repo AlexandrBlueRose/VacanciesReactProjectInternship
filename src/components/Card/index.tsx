@@ -7,6 +7,7 @@ import { Layout, scale } from '@greensight/gds';
 import { UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import Image from 'next/image';
+import Img from 'public/next.svg';
 import { FC, useState } from 'react';
 import { colors, shadows, typography } from 'src/scripts/gds/gds';
 import { visuallyHiddenCss } from 'src/scripts/gds/themes/global';
@@ -16,7 +17,7 @@ import { cardDataCompletion } from './script';
  * Компонент карточки вакансии
  *
  * @version 0.2
- * @author [Alexandr Khaidarov](https://github.com/AlexandrBlueRose/y)
+ * @author [Alexandr Khaidarov](https://github.com/AlexandrBlueRose/)
  *
  * @example
  *
@@ -102,14 +103,14 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                                                     src={card.logoUrl}
                                                     loading="lazy"
                                                     height={40}
-                                                    width={120}
-                                                    sizes="(max-height: 500px) 50px (max-height: 1200px) 120 (max-height: 3000px) 120"
-                                                    css={{ width: '100%', height: `${scale(5)}px` }}
+                                                    width={100}
+                                                    quality={50}
+                                                    css={{ maxHeight: `${scale(5) + 4}px`, width: 'auto' }}
                                                 />
                                             ) : (
                                                 <Image
                                                     alt={`${card?.conditions?.company} logo`}
-                                                    src="/"
+                                                    src={Img}
                                                     loading="lazy"
                                                     height={40}
                                                     width={40}
