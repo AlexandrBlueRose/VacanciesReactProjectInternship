@@ -1,13 +1,37 @@
+import { Metadata } from 'next';
 import { FC } from 'react';
 import { IHead } from './type';
 
+export const metadata: Metadata = {
+    robots: {
+        index: false,
+        follow: true,
+        nocache: true,
+        googleBot: {
+            index: true,
+            follow: false,
+            noimageindex: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
+    verification: {
+        google: 'google',
+        yandex: 'yandex',
+        yahoo: 'yahoo',
+        other: {
+            me: ['my-email', 'my-link'],
+        },
+    },
+};
+
 const HeadContent: FC<IHead> = props => {
-    const { title, description, author, keywords, favicon, social } = props;
+    const { description, author, keywords, favicon, social } = props;
     return (
         <>
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>{title || 'Title not found'}</title>
 
             <meta name="format-detection" content="telephone=no" />
             <meta name="description" content={description} />

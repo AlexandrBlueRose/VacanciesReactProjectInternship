@@ -1,8 +1,7 @@
-'use client';
-
 import { Container, scale } from '@greensight/gds';
 import { FC, PropsWithChildren } from 'react';
 import { typography } from 'src/scripts/gds/gds';
+import { roboto } from 'src/scripts/gds/themes/font';
 import { IHeadingProp } from 'src/types/types';
 
 const Header: FC<PropsWithChildren<IHeadingProp>> = props => {
@@ -10,7 +9,7 @@ const Header: FC<PropsWithChildren<IHeadingProp>> = props => {
 
     if (heading) {
         return (
-            <header css={{ paddingTop: `${scale(8)}px`, paddingBottom: `${scale(6)}px` }}>
+            <header className={roboto.className} css={{ paddingTop: `${scale(8)}px`, paddingBottom: `${scale(6)}px` }}>
                 <Container>
                     <h1
                         css={{

@@ -1,13 +1,17 @@
-import Form from '@components/Form';
 import Button from '@components/controls/Button';
 import { Variant } from '@components/controls/Button/enum';
 import Section from '@containers/Section';
 import { Layout, scale } from '@greensight/gds';
 import CardList from '@views/component/CardList';
 import { MainPageProps } from '@views/homePage';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FC } from 'react';
 import { colors, typography } from 'src/scripts/gds/gds';
+
+const Form = dynamic(() => import('@components/Form'), {
+    loading: () => <p>Loading...</p>,
+});
 
 const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
     <main css={{ marginTop: 100 }}>

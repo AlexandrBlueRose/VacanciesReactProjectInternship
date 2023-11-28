@@ -22,21 +22,21 @@ export const global = {
     fonts: {
         families: {
             Roboto: {
-                stack: '-apple-system, Roboto, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+                stack: '-apple-system, "Roboto", BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
             },
         },
         fontFace: [
             {
                 '@font-face': {
                     fontFamily: 'Roboto',
-                    src: 'url("../../../fonts/Roboto/Roboto-Regular.woff2") format("woff2"), url("../../../fonts/Roboto/Roboto-Regular.woff") format("woff")',
+                    src: 'url("src/fonts/Roboto/Roboto-Regular.woff2") format("woff2"), url("src/fonts/Roboto/Roboto-Regular.woff") format("woff")',
                     fontDisplay: 'swap',
                 },
             },
             {
                 '@font-face': {
                     fontFamily: 'Roboto',
-                    src: 'url("../../../fonts/Roboto/Roboto-Medium.woff2") format("woff2"), url("../../../fonts/Roboto/Roboto-Medium.woff") format("woff")',
+                    src: 'url("src/fonts/Roboto/Roboto-Medium.woff2") format("woff2"), url("src/fonts/Roboto/Roboto-Medium.woff") format("woff")',
                     fontDisplay: 'swap',
                     fontWeight: 500,
                 },
@@ -44,7 +44,7 @@ export const global = {
             {
                 '@font-face': {
                     fontFamily: 'Roboto',
-                    src: 'url("../../../fonts/Roboto/Roboto-Bold.woff2") format("woff2"), url("../../../fonts/Roboto/Roboto-Bold.woff") format("woff")',
+                    src: 'url("src/fonts/Roboto/Roboto-Bold.woff2") format("woff2"), url("src/fonts/Roboto/Roboto-Bold.woff") format("woff")',
                     fontDisplay: 'swap',
                     fontWeight: 700,
                 },
