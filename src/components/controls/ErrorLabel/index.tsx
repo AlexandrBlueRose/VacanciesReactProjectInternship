@@ -1,9 +1,6 @@
 import { FC } from 'react';
 
-interface ErrorLabelProps {
-    errorMessage: string;
-}
-const ErrorLabel: FC<ErrorLabelProps> = prop => {
+const ErrorLabel: FC<{ errorMessage: string }> = prop => {
     const { errorMessage } = prop;
     return (
         <div

@@ -14,7 +14,7 @@ import { UseQueryResult } from 'react-query';
 const HomePage: NextPage = () => {
     const { filtersS } = useCart();
     const router = useRouter();
-    const { data, fetchNextPage } = useVacancies(filtersS || [], []);
+    const { data, fetchNextPage } = useVacancies(filtersS || []);
     const requestData: IItem[][] | undefined = data?.pages.map(items => items.items);
     let dataCards: UseQueryResult<IItem, unknown>[] = [];
     dataCards = useLoadData(requestData || [[]]);
@@ -41,7 +41,7 @@ const HomePage: NextPage = () => {
     return <MainVacanciesPage prefetchData={requestData || []} data={dataCards} onLoadCards={onLoadCards} />;
 };
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
     const { page } = context.query;
     const fetchProjects = async () => VacanciesService.getAllVacancies(page || 1, PER_PAGE).then(result => result.data);
     const queryClient = new QueryClient();

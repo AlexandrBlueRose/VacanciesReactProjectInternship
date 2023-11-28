@@ -1,5 +1,5 @@
 {
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": ["дженерика", "кастомного", "колбэка", "Vals"],
-    "workbench.colorTheme": "Abyss"
+    "workbench.colorTheme": "Vivek Theme"
 }

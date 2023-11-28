@@ -4,7 +4,7 @@
 
 import { CSSObject } from '@emotion/core';
 import { scale } from '@greensight/gds';
-import { FC, MouseEventHandler, useEffect, useRef } from 'react';
+import { FC, LegacyRef, MouseEventHandler, useEffect, useRef } from 'react';
 import { colors, typography } from 'src/scripts/gds/gds';
 
 export type OptionData = {
@@ -24,7 +24,7 @@ const Option: FC<OptionProps> = props => {
         onClick,
     } = props;
 
-    const rootRef = useRef<HTMLDivElement>(null);
+    const rootRef: LegacyRef<HTMLLIElement> | undefined = useRef<HTMLLIElement>(null);
 
     const handleClick =
         (clickedValue: string, key: string): MouseEventHandler<HTMLLIElement> =>

@@ -12,23 +12,18 @@ import { colors, shadows, typography } from 'src/scripts/gds/gds';
 import { visuallyHiddenCss } from 'src/scripts/gds/themes/global';
 import { cardDataCompletion } from './script';
 
-interface CardProps {
-    card: IVacancies;
-}
-
 /**
- * a very simple `Hello World!` component
- * showing how states can be used.
+ * Компонент карточки вакансии
  *
- * @version 0.0.1
- * @author [Andrew Bone](https://github.com/link2twenty)
+ * @version 0.2
+ * @author [Alexandr Khaidarov](https://github.com/AlexandrBlueRose/y)
  *
  * @example
- * <HelloWorld defaultText="World!" />
- * <HelloWorld defaultText="there! General Kenobi?" locked />
+ *
+ * <Card id={data.key} title={data.title} />
  *
  */
-const Card: FC<CardProps> = props => {
+const Card: FC<{ card: IVacancies | null }> = props => {
     const { card } = props;
     const [isDescriptionOpen, setDescriptionIsOpen] = useState(false);
     const descriptionStyle: CSSObject = !isDescriptionOpen
@@ -97,13 +92,13 @@ const Card: FC<CardProps> = props => {
                                                     ...typography('h4'),
                                                 }}
                                             >
-                                                {card.titles}
+                                                {card?.titles || 'Not selected'}
                                             </h3>
                                         </Layout.Item>
                                         <Layout.Item>
-                                            {card.logoUrl ? (
+                                            {card?.logoUrl ? (
                                                 <Image
-                                                    alt={`${card.conditions?.company} logo`}
+                                                    alt={`${card?.conditions?.company} logo`}
                                                     src={card.logoUrl}
                                                     loading="lazy"
                                                     height={40}
@@ -113,7 +108,7 @@ const Card: FC<CardProps> = props => {
                                                 />
                                             ) : (
                                                 <Image
-                                                    alt={`${card.conditions?.company} logo`}
+                                                    alt={`${card?.conditions?.company} logo`}
                                                     src="/"
                                                     loading="lazy"
                                                     height={40}
@@ -129,7 +124,11 @@ const Card: FC<CardProps> = props => {
                                         marginLeft: `auto`,
                                     }}
                                 >
-                                    <Button type="button" variant={Variant.secondary}>
+                                    <Button
+                                        type="button"
+                                        variant={Variant.secondary}
+                                        getTypographyCSS={() => typography('s')}
+                                    >
                                         Respond
                                     </Button>
                                 </Layout.Item>
@@ -152,7 +151,7 @@ const Card: FC<CardProps> = props => {
                                                 <dt>Form</dt>
                                             </Layout.Item>
                                             <Layout.Item>
-                                                <dd css={{ color: colors.black }}>{card.conditions?.form}</dd>
+                                                <dd css={{ color: colors.black }}>{card?.conditions?.form}</dd>
                                             </Layout.Item>
                                         </Layout>
                                     </Layout.Item>
@@ -162,7 +161,7 @@ const Card: FC<CardProps> = props => {
                                                 <dt>Company</dt>
                                             </Layout.Item>
                                             <Layout.Item>
-                                                <dd css={{ color: colors.black }}>{card.conditions?.company}</dd>
+                                                <dd css={{ color: colors.black }}>{card?.conditions?.company}</dd>
                                             </Layout.Item>
                                         </Layout>
                                     </Layout.Item>
@@ -172,7 +171,7 @@ const Card: FC<CardProps> = props => {
                                                 <dt>Web</dt>
                                             </Layout.Item>
                                             <Layout.Item>
-                                                <dd css={{ color: colors.black }}>{card.conditions?.web}</dd>
+                                                <dd css={{ color: colors.black }}>{card?.conditions?.web}</dd>
                                             </Layout.Item>
                                         </Layout>
                                     </Layout.Item>
@@ -182,7 +181,7 @@ const Card: FC<CardProps> = props => {
                                                 <dt>Address</dt>
                                             </Layout.Item>
                                             <Layout.Item>
-                                                <dd css={{ color: colors.black }}>{card.conditions?.address}</dd>
+                                                <dd css={{ color: colors.black }}>{card?.conditions?.address}</dd>
                                             </Layout.Item>
                                         </Layout>
                                     </Layout.Item>
@@ -194,7 +193,7 @@ const Card: FC<CardProps> = props => {
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html:
-                                        card.description !== undefined
+                                        card?.description !== undefined
                                             ? card.description
                                             : '<div>Description not found</div>',
                                 }}
@@ -223,7 +222,11 @@ const Card: FC<CardProps> = props => {
                         </Layout.Item>
                         <Layout.Item css={{ width: '100%' }}>
                             <div css={{ margin: '0 auto' }}>
-                                <Button variant={Variant.link} onClick={onOpenDescription}>
+                                <Button
+                                    variant={Variant.link}
+                                    onClick={onOpenDescription}
+                                    getTypographyCSS={() => typography('s')}
+                                >
                                     {!isDescriptionOpen ? 'More details' : 'Less details'}
                                 </Button>
                             </div>

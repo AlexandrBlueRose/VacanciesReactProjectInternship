@@ -24,6 +24,7 @@ const CardProvider: FC<PropsWithChildren> = ({ children }) => {
     const changeFiltersById = (value: string, changeValue: keyApi) => {
         const result: keyApi[] = filtersContext.map(filter => {
             if (filter.id === value) {
+                // eslint-disable-next-line no-param-reassign
                 filter = changeValue;
             }
             return filter;
@@ -33,6 +34,7 @@ const CardProvider: FC<PropsWithChildren> = ({ children }) => {
 
     return (
         <FilterContext.Provider
+            // eslint-disable-next-line react/jsx-no-constructed-context-values
             value={{
                 filtersContext,
                 setFiltersContext,

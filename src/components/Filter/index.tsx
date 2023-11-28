@@ -8,6 +8,7 @@ import { useCart } from '@context/cardLoadingContext/CardProvider';
 import { Layout, scale } from '@greensight/gds';
 import router from 'next/router';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { typography } from 'src/scripts/gds/gds';
 
 export type keyApi = {
     key: string;
@@ -113,11 +114,16 @@ const Filter: FC<IFilter> = props => {
                     </Layout.Item>
                 ))}
             </Layout>
-            <Button variant={Variant.primary} onClick={onSearch}>
+            <Button variant={Variant.primary} onClick={onSearch} getTypographyCSS={() => typography('s')}>
                 Search
             </Button>
             {(filterFolder?.length || 0) > 0 ? (
-                <Button variant={Variant.linkFilter} onClick={onClear} css={{ width: 'max-content' }}>
+                <Button
+                    variant={Variant.linkFilter}
+                    onClick={onClear}
+                    css={{ width: 'max-content' }}
+                    getTypographyCSS={() => typography('s')}
+                >
                     Clear filters
                 </Button>
             ) : null}

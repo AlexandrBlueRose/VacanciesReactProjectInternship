@@ -1,5 +1,6 @@
 import { OptionizedCSS, extractCSSOption, scale } from '@greensight/gds';
 import { MEDIA_QUERIES, colors, typography } from 'src/scripts/gds/gds';
+import chevronDown from '../../../../client/images/icons/tokens/16/chevronDown.svg';
 import { Size, Variant } from '../enum';
 import { ButtonTheme } from '../types';
 
@@ -112,6 +113,41 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                     },
                 }),
             },
+            selectButtonDefault: {
+                ':after': {
+                    content: '""',
+                    backgroundImage: chevronDown,
+                    position: 'absolute',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundSize: '100%',
+                    width: scale(2),
+                    height: scale(2),
+                    top: 'calc(50%)',
+                    right: scale(3, true),
+                    transform: 'translateY(-50%)',
+                },
+                position: 'relative',
+                margin: 0,
+                padding: `${scale(1, true)}px ${scale(3, true)}px`,
+                height: scale(6) - 4,
+                borderRadius: scale(1, true),
+                color: colors.grey600,
+                textAlign: 'left',
+                border: `1px solid ${colors.grey400}`,
+                ...typography('s'),
+            },
+            selectButtonActive: {
+                position: 'relative',
+                margin: 0,
+                padding: `${scale(1, true)}px ${scale(3, true)}px`,
+                height: scale(6) - 4,
+                borderRadius: scale(1, true),
+                color: colors.black,
+                textAlign: 'left',
+                border: `1px solid ${colors.grey400}`,
+                ...typography('s'),
+            },
         };
 
         return {
@@ -129,6 +165,13 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                 padding: `${scale(1, true) + 0.5}px ${scale(1)}px`,
                 ...typography('xs'),
             },
+            lg: {},
+            xl: {},
+            xs: {},
+            xxl: {},
+            xxs: {},
+            xxxl: {},
+            xxxs: {},
         };
         const variant: OptionizedCSS<typeof Variant> = {
             link: {
@@ -143,6 +186,15 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                 display: 'none',
             },
             notactive: {
+                display: 'none',
+            },
+            linkFilter: {
+                display: 'none',
+            },
+            selectButtonActive: {
+                display: 'none',
+            },
+            selectButtonDefault: {
                 display: 'none',
             },
         };

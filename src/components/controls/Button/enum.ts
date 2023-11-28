@@ -4,6 +4,8 @@ export enum Variant {
     link = 'link',
     notactive = 'notactive',
     linkFilter = 'linkFilter',
+    selectButtonDefault = 'selectButtonDefault',
+    selectButtonActive = 'selectButtonActive',
 }
 
 export enum Size {

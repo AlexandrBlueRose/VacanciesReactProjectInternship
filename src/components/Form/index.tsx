@@ -10,6 +10,7 @@ import { CSSObject } from '@emotion/core';
 import { Layout, scale } from '@greensight/gds';
 import { useFormik } from 'formik';
 import { FC } from 'react';
+import { typography } from 'src/scripts/gds/gds';
 import * as Yup from 'yup';
 
 interface FormControl {
@@ -34,6 +35,7 @@ const Form: FC<FormControl> = props => {
             comment: Yup.string().max(200, 'Comment is to long'),
         }),
         onSubmit: values => {
+            // eslint-disable-next-line no-alert
             alert(
                 `Sent name: ${values.name}\nSent email: ${values.email}\nSent phone: ${values.phone}\nSent comment: ${values.comment}`
             );
@@ -128,7 +130,7 @@ const Form: FC<FormControl> = props => {
                     </fieldset>
                 </Layout.Item>
                 <Layout.Item css={{ textAlign: 'center' }}>
-                    <Button variant={Variant.primary} type="submit">
+                    <Button variant={Variant.primary} type="submit" getTypographyCSS={() => typography('s')}>
                         Send
                     </Button>
                 </Layout.Item>

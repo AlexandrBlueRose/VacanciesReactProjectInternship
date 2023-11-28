@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import { ISelectFilter } from '@components/Filter';
-import { CSSObject } from '@emotion/core';
 import { Layout, scale } from '@greensight/gds';
 import { colors, shadows } from '@public/tokens.json';
 import { FC, useEffect, useRef, useState } from 'react';
 import { typography } from 'src/scripts/gds/gds';
+import Button from '../Button';
+import { Size, Variant } from '../Button/enum';
 import Option, { OptionData } from '../Option';
 
 const Select: FC<ISelectFilter> = props => {
@@ -33,7 +36,7 @@ const Select: FC<ISelectFilter> = props => {
         const handleMouseClick = (event: MouseEvent) => {
             const { target } = event;
             event.stopPropagation();
-            if (target instanceof Node && !rootRef.current?.contains(target)) {
+            if (target instanceof Node && !rootRef.current) {
                 setIsOpenSelect(false);
             }
         };
@@ -50,11 +53,11 @@ const Select: FC<ISelectFilter> = props => {
         };
 
         window.addEventListener('click', handleMouseClick);
-        optionElement?.addEventListener('keydown', handleKeyboardClick);
+        // optionElement?.addEventListener('keydown', handleKeyboardClick);
 
         return () => {
             window.removeEventListener('click', handleMouseClick);
-            optionElement?.addEventListener('keydown', handleKeyboardClick);
+            // optionElement?.addEventListener('keydown', handleKeyboardClick);
         };
     }, [onClose]);
 
@@ -80,28 +83,6 @@ const Select: FC<ISelectFilter> = props => {
             }
         }
     };
-    const selectMainButton: CSSObject = {
-        position: 'relative',
-        margin: 0,
-        padding: `${scale(1, true)}px ${scale(3, true)}px`,
-        height: scale(6) - 4,
-        borderRadius: scale(1, true),
-        color: colors.grey600,
-        textAlign: 'left',
-        border: `1px solid ${colors.grey400}`,
-        ...typography('s'),
-    }; // toDo add this to theme
-    const selectMainButtonOptionSelected: CSSObject = {
-        position: 'relative',
-        margin: 0,
-        padding: `${scale(1, true)}px ${scale(3, true)}px`,
-        height: scale(6) - 4,
-        borderRadius: scale(1, true),
-        color: colors.black,
-        textAlign: 'left',
-        border: `1px solid ${colors.grey400}`,
-        ...typography('s'),
-    };
 
     return (
         <Layout
@@ -126,16 +107,18 @@ const Select: FC<ISelectFilter> = props => {
                 >
                     {title}
                 </div>
-                <button
+                <Button
+                    getTypographyCSS={() => typography('s')}
                     type="button"
+                    variant={selectValue === dataEventual ? Variant.selectButtonDefault : Variant.selectButtonActive}
                     data-eventual={selectValue}
                     data-key={selectKey}
                     ref={rootRef}
                     onClick={onOpenSelect}
-                    css={selectValue !== dataEventual ? selectMainButtonOptionSelected : selectMainButton}
+                    size={Size.md}
                 >
                     {selectValue}
-                </button>
+                </Button>
                 <ul
                     css={{
                         display: isOpenSelect ? 'block' : 'none',

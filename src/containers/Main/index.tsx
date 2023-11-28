@@ -23,7 +23,11 @@ const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
                     }}
                 >
                     {data.length > 0 ? (
-                        <Button variant={Variant.primary} onClick={onLoadCards}>
+                        <Button
+                            variant={Variant.primary}
+                            onClick={onLoadCards}
+                            getTypographyCSS={() => typography('s')}
+                        >
                             Show more
                         </Button>
                     ) : (

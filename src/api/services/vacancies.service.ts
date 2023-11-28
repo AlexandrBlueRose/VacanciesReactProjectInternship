@@ -1,15 +1,15 @@
-import { PER_PAGE, getVacanciesAll, getVacancyById } from '@api/config/api.config';
+import { getVacanciesAll, getVacancyById } from '@api/config/api.config';
 import { IItem, IVacanciesData } from '@api/types';
 import { keyApi } from '@components/Filter/index';
 import axios from 'axios';
 
 export const VacanciesService = {
-    async getAllVacancies(page: number = 1, perPage: number = PER_PAGE, filters?: keyApi[]) {
+    async getAllVacancies(page: number, perPage: number, filters?: keyApi[]) {
         const queryParams =
             filters?.length !== 0 && filters !== undefined
                 ? filters.map(item => `&${item.key}=${item.value}`).join('')
                 : '';
-        return axios.get<IVacanciesData>(getVacanciesAll(perPage, page, queryParams), {
+        return axios.get<IVacanciesData>(getVacanciesAll(perPage || 5, page || 1, queryParams), {
             timeout: 2500,
         });
     },
