@@ -10,7 +10,7 @@ import { CSSObject } from '@emotion/core';
 import { Layout, scale } from '@greensight/gds';
 import { useFormik } from 'formik';
 import { FC } from 'react';
-import { typography } from 'src/scripts/gds/gds';
+import { MEDIA_QUERIES, typography } from 'src/scripts/gds/gds';
 import * as Yup from 'yup';
 
 interface FormControl {
@@ -130,7 +130,17 @@ const Form: FC<FormControl> = props => {
                     </fieldset>
                 </Layout.Item>
                 <Layout.Item css={{ textAlign: 'center' }}>
-                    <Button variant={Variant.primary} type="submit" getTypographyCSS={() => typography('s')}>
+                    <Button
+                        variant={Variant.primary}
+                        type="submit"
+                        getTypographyCSS={() => typography('s')}
+                        css={{
+                            minWidth: `${scale(48)}px`,
+                            [MEDIA_QUERIES.md]: {
+                                minWidth: '100%',
+                            },
+                        }}
+                    >
                         Send
                     </Button>
                 </Layout.Item>

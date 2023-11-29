@@ -1,5 +1,15 @@
 import { keyApi } from '@components/Filter';
-import { Dispatch, FC, PropsWithChildren, SetStateAction, createContext, useContext, useState } from 'react';
+import {
+    Dispatch,
+    FC,
+    PropsWithChildren,
+    SetStateAction,
+    createContext,
+    useCallback,
+    useContext,
+    useMemo,
+    useState,
+} from 'react';
 
 interface IFilterContext {
     filtersContext: keyApi[];
@@ -15,39 +25,34 @@ export const FilterContext = createContext<IFilterContext | null>(null);
 
 const CardProvider: FC<PropsWithChildren> = ({ children }) => {
     const [isSearch, setSearch] = useState(false);
-    const filtersContext: keyApi[] = [];
+    const filtersContext: keyApi[] = useMemo(() => [], []);
     const [filtersS, setFiltersS] = useState<keyApi[]>([]);
 
-    const setFiltersContext = (value: keyApi) => {
-        filtersContext.push(value);
-    };
-    const changeFiltersById = (value: string, changeValue: keyApi) => {
-        const result: keyApi[] = filtersContext.map(filter => {
-            if (filter.id === value) {
-                // eslint-disable-next-line no-param-reassign
-                filter = changeValue;
-            }
-            return filter;
-        });
-        filtersContext.splice(0, filtersContext.length, ...result);
-    };
-
-    return (
-        <FilterContext.Provider
-            // eslint-disable-next-line react/jsx-no-constructed-context-values
-            value={{
-                filtersContext,
-                setFiltersContext,
-                changeFiltersById,
-                isSearch,
-                setSearch,
-                filtersS,
-                setFiltersS,
-            }}
-        >
-            {children}
-        </FilterContext.Provider>
+    const setFiltersContext = useCallback(
+        (value: keyApi) => {
+            filtersContext.push(value);
+        },
+        [filtersContext]
     );
+    const changeFiltersById = useCallback(
+        (value: string, changeValue: keyApi) => {
+            const result: keyApi[] = filtersContext.map(filter => {
+                if (filter.id === value) {
+                    return changeValue;
+                }
+                return filter;
+            });
+            filtersContext.splice(0, filtersContext.length, ...result);
+        },
+        [filtersContext]
+    );
+
+    const providerValue = useMemo(
+        () => ({ filtersContext, setFiltersContext, changeFiltersById, isSearch, setSearch, filtersS, setFiltersS }),
+        [changeFiltersById, filtersContext, filtersS, isSearch, setFiltersContext]
+    );
+
+    return <FilterContext.Provider value={providerValue}>{children}</FilterContext.Provider>;
 };
 export const useCart = () => {
     const context = useContext(FilterContext);

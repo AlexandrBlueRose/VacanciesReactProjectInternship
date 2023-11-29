@@ -9,8 +9,9 @@ import { AxiosResponse } from 'axios';
 import Image from 'next/image';
 import Img from 'public/next.svg';
 import { FC, useState } from 'react';
-import { colors, shadows, typography } from 'src/scripts/gds/gds';
+import { MEDIA_QUERIES, colors, shadows, typography } from 'src/scripts/gds/gds';
 import { visuallyHiddenCss } from 'src/scripts/gds/themes/global';
+import chervonDBlue from '../../icons/chevronDownLink.svg';
 import { cardDataCompletion } from './script';
 
 /**
@@ -35,8 +36,22 @@ const Card: FC<{ card: IVacancies | null }> = props => {
               maxWidth: '63.3%',
               overflow: 'hidden',
               transition: '0.5s',
+              margin: `${scale(3, true)}px 0`,
+              [MEDIA_QUERIES.md]: {
+                  maxWidth: '100%',
+              },
           }
-        : { width: '100%', position: 'relative', maxWidth: '63.3%' };
+        : {
+              width: '100%',
+              position: 'relative',
+              maxWidth: '63.3%',
+              [MEDIA_QUERIES.md]: {
+                  maxWidth: '100%',
+              },
+          };
+
+    const conditionsStyle: CSSObject = { display: 'flex', gap: `${scale(2)}px`, color: colors.grey700 };
+    const conditionValueStyle: CSSObject = { color: colors.black };
 
     const onOpenDescription = () => {
         setDescriptionIsOpen(!isDescriptionOpen);
@@ -55,6 +70,9 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                         marginBottom: `${scale(4)}px`,
                         borderRadius: `${scale(2)}px`,
                         boxShadow: shadows.box,
+                        [MEDIA_QUERIES.xs]: {
+                            padding: `${scale(5, true)}px`,
+                        },
                     }}
                 >
                     <Layout
@@ -62,7 +80,7 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                         align="start"
                         direction="column"
                         css={{
-                            gap: `${scale(6, true)}px`,
+                            gap: `${scale(1, true)}px`,
                         }}
                     >
                         <Layout.Item css={{ width: '100%' }}>
@@ -96,7 +114,13 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                                                 {card?.titles || 'Not selected'}
                                             </h3>
                                         </Layout.Item>
-                                        <Layout.Item>
+                                        <Layout.Item
+                                            css={{
+                                                [MEDIA_QUERIES.xs]: {
+                                                    order: -1,
+                                                },
+                                            }}
+                                        >
                                             {card?.logoUrl ? (
                                                 <Image
                                                     alt={`${card?.conditions?.company} logo`}
@@ -111,9 +135,6 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                                                 <Image
                                                     alt={`${card?.conditions?.company} logo`}
                                                     src={Img}
-                                                    loading="lazy"
-                                                    height={40}
-                                                    width={40}
                                                     css={visuallyHiddenCss}
                                                 />
                                             )}
@@ -123,6 +144,9 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                                 <Layout.Item
                                     css={{
                                         marginLeft: `auto`,
+                                        [MEDIA_QUERIES.xs]: {
+                                            width: '100%',
+                                        },
                                     }}
                                 >
                                     <Button
@@ -136,58 +160,47 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                             </Layout>
                         </Layout.Item>
                         <Layout.Item css={{ width: '100%' }}>
-                            <dl>
-                                <Layout
-                                    type="flex"
-                                    wrap
-                                    css={{
-                                        gap: `${scale(6)}px`,
-                                        rowGap: `${scale(5, true)}px`,
-                                        paddingBottom: `${scale(3, true)}px`,
-                                    }}
-                                >
-                                    <Layout.Item>
-                                        <Layout type="flex" css={{ gap: `${scale(1)}px`, color: colors.grey700 }}>
-                                            <Layout.Item>
-                                                <dt>Form</dt>
-                                            </Layout.Item>
-                                            <Layout.Item>
-                                                <dd css={{ color: colors.black }}>{card?.conditions?.form}</dd>
-                                            </Layout.Item>
-                                        </Layout>
-                                    </Layout.Item>
-                                    <Layout.Item>
-                                        <Layout type="flex" css={{ gap: `${scale(1)}px`, color: colors.grey700 }}>
-                                            <Layout.Item>
-                                                <dt>Company</dt>
-                                            </Layout.Item>
-                                            <Layout.Item>
-                                                <dd css={{ color: colors.black }}>{card?.conditions?.company}</dd>
-                                            </Layout.Item>
-                                        </Layout>
-                                    </Layout.Item>
-                                    <Layout.Item>
-                                        <Layout type="flex" css={{ gap: `${scale(1)}px`, color: colors.grey700 }}>
-                                            <Layout.Item>
-                                                <dt>Web</dt>
-                                            </Layout.Item>
-                                            <Layout.Item>
-                                                <dd css={{ color: colors.black }}>{card?.conditions?.web}</dd>
-                                            </Layout.Item>
-                                        </Layout>
-                                    </Layout.Item>
-                                    <Layout.Item>
-                                        <Layout type="flex" css={{ gap: `${scale(1)}px`, color: colors.grey700 }}>
-                                            <Layout.Item>
-                                                <dt>Address</dt>
-                                            </Layout.Item>
-                                            <Layout.Item>
-                                                <dd css={{ color: colors.black }}>{card?.conditions?.address}</dd>
-                                            </Layout.Item>
-                                        </Layout>
-                                    </Layout.Item>
-                                </Layout>
-                            </dl>
+                            <Layout
+                                type="flex"
+                                wrap
+                                css={{
+                                    gap: `${scale(6)}px`,
+                                    rowGap: `${scale(5, true)}px`,
+                                    paddingBottom: `${scale(3, true)}px`,
+                                    [MEDIA_QUERIES.md]: {
+                                        gap: `${scale(1)}px`,
+                                    },
+                                }}
+                            >
+                                <Layout.Item>
+                                    <dl css={conditionsStyle}>
+                                        <dt>Form</dt>
+                                        <dd css={conditionValueStyle}>{card?.conditions?.form}</dd>
+                                    </dl>
+                                </Layout.Item>
+                                <Layout.Item>
+                                    <dl css={conditionsStyle}>
+                                        <dt>Company</dt>
+                                        <dd css={conditionValueStyle}>{card?.conditions?.company}</dd>
+                                    </dl>
+                                </Layout.Item>
+                                <Layout.Item>
+                                    <dl css={conditionsStyle}>
+                                        <dt>Web</dt>
+                                        <dd css={conditionValueStyle}>
+                                            <a href={card?.conditions?.web} css={{ wordBreak: 'break-all' }}>
+                                                {card?.conditions?.web}
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                </Layout.Item>
+                                <Layout.Item>
+                                    <dl css={conditionsStyle}>
+                                        <dt>Address</dt>
+                                        <dd css={conditionValueStyle}>{card?.conditions?.address}</dd>
+                                    </dl>
+                                </Layout.Item>
+                            </Layout>
                         </Layout.Item>
 
                         <Layout.Item css={descriptionStyle}>
@@ -210,13 +223,11 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                                               width: '100%',
                                               height: '90px',
                                               opacity: 1,
-                                              transition: '0.7s',
                                           }
                                         : {
                                               height: 0,
                                               width: 0,
                                               opacity: 0,
-                                              transition: '0.7s',
                                           }
                                 }
                             />
@@ -227,6 +238,8 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                                     variant={Variant.link}
                                     onClick={onOpenDescription}
                                     getTypographyCSS={() => typography('s')}
+                                    Icon={chervonDBlue}
+                                    rounded={!!isDescriptionOpen}
                                 >
                                     {!isDescriptionOpen ? 'More details' : 'Less details'}
                                 </Button>
@@ -251,5 +264,5 @@ export const onLoad = (requestFullData: UseQueryResult<AxiosResponse<IItem, any>
     });
     return ret;
 };
-// todo вынести часть стилей layouts and items
+
 export default Card;

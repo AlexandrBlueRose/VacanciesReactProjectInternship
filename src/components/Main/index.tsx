@@ -7,14 +7,14 @@ import { MainPageProps } from '@views/homePage';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FC } from 'react';
-import { colors, typography } from 'src/scripts/gds/gds';
+import { MEDIA_QUERIES, colors, typography } from 'src/scripts/gds/gds';
 
 const Form = dynamic(() => import('@components/Form'), {
     loading: () => <p>Loading...</p>,
 });
 
 const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
-    <main css={{ marginTop: 100 }}>
+    <main>
         <Section heading="CardList" levelHeading="h2" isHidden>
             <Layout type="flex" direction="column" css={{ rowGap: `${scale(5)}px` }}>
                 <Layout.Item>
@@ -24,6 +24,9 @@ const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
                     css={{
                         margin: '0 auto',
                         marginBottom: `clamp(${scale(4)}px, 10%, ${scale(13)}px)`,
+                        [MEDIA_QUERIES.md]: {
+                            width: '100%',
+                        },
                     }}
                 >
                     {data.length > 0 ? (
@@ -31,6 +34,12 @@ const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
                             variant={Variant.primary}
                             onClick={onLoadCards}
                             getTypographyCSS={() => typography('s')}
+                            css={{
+                                minWidth: `${scale(48)}px`,
+                                [MEDIA_QUERIES.md]: {
+                                    minWidth: '100%',
+                                },
+                            }}
                         >
                             Show more
                         </Button>
@@ -56,7 +65,25 @@ const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
             >
                 By clicking "Send" you confirm your consent to the
                 <br />
-                <Link href="" css={{ textDecoration: 'none', border: 0, color: colors.blue }}>
+                <Link
+                    href=""
+                    css={{
+                        textDecoration: 'none',
+                        border: 0,
+                        color: colors.blue,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        ':after': {
+                            content: "''",
+                            position: 'absolute',
+                            height: '1px',
+                            opacity: 0.2,
+                            backgroundColor: colors.blue,
+                            width: '199px',
+                            marginTop: '21px',
+                        },
+                    }}
+                >
                     processing of personal data
                 </Link>
             </div>

@@ -5,8 +5,9 @@ import { cardDataCompletion } from '@components/Card/script';
 import { Layout, scale } from '@greensight/gds';
 import { MainPageProps } from '@views/homePage';
 import { FC, JSX } from 'react';
+import { UseQueryResult } from 'react-query';
 
-const onLoad = (requestFullData: any[] /** ToDO fix */) => {
+const onLoad = (requestFullData: UseQueryResult<IItem, unknown>[]) => {
     const cardCompletion = requestFullData.map(item => {
         if (item.data !== undefined) {
             return cardDataCompletion(item.data);

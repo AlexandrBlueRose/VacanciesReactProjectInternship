@@ -1,6 +1,5 @@
 import { OptionizedCSS, extractCSSOption, scale } from '@greensight/gds';
 import { MEDIA_QUERIES, colors, typography } from 'src/scripts/gds/gds';
-import chevronDown from '../../../../client/images/icons/tokens/16/chevronDown.svg';
 import { Size, Variant } from '../enum';
 import { ButtonTheme } from '../types';
 
@@ -55,13 +54,13 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
             link: {
                 backgroundColor: 'none',
                 color: colors.blue,
-                width: '20%',
                 textAlign: 'center',
                 margin: 'auto',
                 display: 'flex',
                 alignItems: 'start',
                 justifyContent: 'center',
                 gap: '0',
+                flexDirection: 'row-reverse',
                 ...typography('m'),
                 [MEDIA_QUERIES.md]: {
                     width: '100%',
@@ -92,6 +91,17 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                 alignItems: 'start',
                 justifyContent: 'center',
                 gap: '0',
+                ':after': {
+                    content: "''",
+                    position: 'absolute',
+                    height: '1px',
+                    opacity: 0.2,
+                    backgroundColor: colors.blue,
+                    width: '82px',
+                    marginTop: '20px',
+                    marginLeft: '17px',
+                    zIndex: -10,
+                },
                 ...typography('m'),
                 [MEDIA_QUERIES.md]: {
                     width: '100%',
@@ -114,24 +124,12 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                 }),
             },
             selectButtonDefault: {
-                ':after': {
-                    content: '""',
-                    backgroundImage: chevronDown,
-                    position: 'absolute',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    backgroundSize: '100%',
-                    width: scale(2),
-                    height: scale(2),
-                    top: 'calc(50%)',
-                    right: scale(3, true),
-                    transform: 'translateY(-50%)',
-                },
                 position: 'relative',
                 margin: 0,
                 padding: `${scale(1, true)}px ${scale(3, true)}px`,
                 height: scale(6) - 4,
                 borderRadius: scale(1, true),
+
                 color: colors.grey600,
                 textAlign: 'left',
                 border: `1px solid ${colors.grey400}`,
@@ -175,8 +173,17 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
         };
         const variant: OptionizedCSS<typeof Variant> = {
             link: {
+                padding: 0,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: '100%',
+                width: scale(2),
+                height: scale(2),
+                marginTop: '4px',
                 ...(state.rounded && {
                     transform: 'rotate(180deg)',
+                    top: 'calc(30%)',
+                    transition: '0.5s',
                 }),
             },
             primary: {
@@ -189,13 +196,42 @@ const basicTheme: ButtonTheme<typeof Variant, typeof Size> = {
                 display: 'none',
             },
             linkFilter: {
-                display: 'none',
+                display: 'block',
+                marginTop: '4px',
             },
             selectButtonActive: {
-                display: 'none',
+                padding: 0,
+                position: 'absolute',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: '100%',
+                width: scale(2),
+                height: scale(2),
+                top: 'calc(50%)',
+                right: scale(3, true),
+                transform: 'translateY(-50%)',
+                ...(state.rounded && {
+                    transform: 'rotate(180deg)',
+                    top: 'calc(30%)',
+                    transition: '0.5s',
+                }),
             },
             selectButtonDefault: {
-                display: 'none',
+                padding: 0,
+                position: 'absolute',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: '100%',
+                width: scale(2),
+                height: scale(2),
+                top: 'calc(50%)',
+                right: scale(3, true),
+                transform: 'translateY(-50%)',
+                ...(state.rounded && {
+                    transform: 'rotate(180deg)',
+                    top: 'calc(30%)',
+                    transition: '0.5s',
+                }),
             },
         };
 

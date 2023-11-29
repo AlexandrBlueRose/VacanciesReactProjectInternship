@@ -6,9 +6,10 @@ import { OptionData } from '@components/controls/Option';
 import Select from '@components/controls/Select';
 import { useCart } from '@context/cardLoadingContext/CardProvider';
 import { Layout, scale } from '@greensight/gds';
+import closeIcon from '@icons/close.svg';
 import router from 'next/router';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
-import { typography } from 'src/scripts/gds/gds';
+import { MEDIA_QUERIES, typography } from 'src/scripts/gds/gds';
 
 export type keyApi = {
     key: string;
@@ -114,15 +115,31 @@ const Filter: FC<IFilter> = props => {
                     </Layout.Item>
                 ))}
             </Layout>
-            <Button variant={Variant.primary} onClick={onSearch} getTypographyCSS={() => typography('s')}>
+            <Button
+                variant={Variant.primary}
+                onClick={onSearch}
+                getTypographyCSS={() => typography('s')}
+                css={{
+                    width: 'max-content',
+                    [MEDIA_QUERIES.xs]: {
+                        order: 2,
+                    },
+                }}
+            >
                 Search
             </Button>
             {(filterFolder?.length || 0) > 0 ? (
                 <Button
                     variant={Variant.linkFilter}
                     onClick={onClear}
-                    css={{ width: 'max-content' }}
+                    css={{
+                        width: 'max-content',
+                        [MEDIA_QUERIES.xs]: {
+                            order: 1,
+                        },
+                    }}
                     getTypographyCSS={() => typography('s')}
+                    Icon={closeIcon}
                 >
                     Clear filters
                 </Button>

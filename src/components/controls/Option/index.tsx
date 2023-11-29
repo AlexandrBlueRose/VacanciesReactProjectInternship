@@ -64,6 +64,7 @@ const Option: FC<OptionProps> = props => {
                     padding: `${scale(1)}px ${scale(3, true)}px`,
                     height: `${scale(5)}px`,
                     color: colors.black,
+                    zIndex: 10,
                     ...typography('s'),
                 }}
             >

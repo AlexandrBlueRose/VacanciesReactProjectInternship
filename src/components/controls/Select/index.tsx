@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import { ISelectFilter } from '@components/Filter';
@@ -7,6 +5,7 @@ import { Layout, scale } from '@greensight/gds';
 import { colors, shadows } from '@public/tokens.json';
 import { FC, useEffect, useRef, useState } from 'react';
 import { typography } from 'src/scripts/gds/gds';
+import chervonD from '../../../icons/chevronDown.svg';
 import Button from '../Button';
 import { Size, Variant } from '../Button/enum';
 import Option, { OptionData } from '../Option';
@@ -32,7 +31,6 @@ const Select: FC<ISelectFilter> = props => {
     const [selectKey, setSelectKey] = useState(dataKey);
 
     useEffect(() => {
-        const optionElement = rootRef.current;
         const handleMouseClick = (event: MouseEvent) => {
             const { target } = event;
             event.stopPropagation();
@@ -40,24 +38,11 @@ const Select: FC<ISelectFilter> = props => {
                 setIsOpenSelect(false);
             }
         };
-        const handleKeyboardClick = (event: KeyboardEvent) => {
-            if (event.key === 'Enter') {
-                setIsOpenSelect(isOpen => !isOpen);
-            }
-            if (event.key === 'Escape') {
-                setIsOpenSelect(false);
-            }
-            if (event.key === 'Tab') {
-                setIsOpenSelect(false);
-            }
-        };
 
         window.addEventListener('click', handleMouseClick);
-        // optionElement?.addEventListener('keydown', handleKeyboardClick);
 
         return () => {
             window.removeEventListener('click', handleMouseClick);
-            // optionElement?.addEventListener('keydown', handleKeyboardClick);
         };
     }, [onClose]);
 
@@ -116,6 +101,8 @@ const Select: FC<ISelectFilter> = props => {
                     ref={rootRef}
                     onClick={onOpenSelect}
                     size={Size.md}
+                    Icon={chervonD}
+                    rounded={!!isOpenSelect}
                 >
                     {selectValue}
                 </Button>
@@ -130,6 +117,7 @@ const Select: FC<ISelectFilter> = props => {
                         width: '100%',
                         backgroundColor: colors.white,
                         cursor: 'pointer',
+                        zIndex: 100,
                     }}
                 >
                     {keyApi.map(
@@ -150,23 +138,5 @@ const Select: FC<ISelectFilter> = props => {
         </Layout>
     );
 };
-
-// const SelectRef = forwardRef(BaseSelect) as typeof BaseSelect;
-
-// export const createSelectWithTheme = <V extends EnumLike, S extends EnumLike>(
-//     defaultTheme: SelectTheme<V, S>,
-//     defaultVariant: V | keyof V,
-//     defaultSize: S | keyof S
-// ) => {
-//     type SelectReturn = ReturnType<typeof SelectRef>;
-//     const ThemedSelect = (({ theme = defaultTheme, variant = defaultVariant, size = defaultSize, ...props }, ref) => (
-//         <SelectRef theme={theme} variant={variant} size={size} {...props} />
-//     )) as (props: SelectProps<V, S>, ref: Ref<HTMLButtonElement>) => SelectReturn;
-//     (ThemedSelect as any).displayName = 'Button';
-
-//     return forwardRef(ThemedSelect) as typeof ThemedSelect;
-// };
-
-// export const Select = createSelectWithTheme<typeof Variant, typeof Size>(SELECT_THEMES.basic, Variant.primary, Size.md);
 
 export default Select;
