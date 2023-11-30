@@ -62,6 +62,8 @@ const CardList: FC<cardProps> = props => {
                 ...onLoad(data).slice(0, cardPreload.length - PER_PAGE),
                 ...(cardPreload.slice(cardPreload.length - PER_PAGE) || []),
             ]);
+        } else {
+            setDataCards([...cardPreload]);
         }
         if (countLoading === cardPreload.length) {
             setDataCards(onLoad(data));
@@ -70,7 +72,7 @@ const CardList: FC<cardProps> = props => {
 
     return (
         <Layout type="flex" direction="column" css={{ rowGap: `${scale(4)}px` }}>
-            <Layout.Item>{countLoading < PER_PAGE ? [...(cardPreload || [])] : [...(dataCards || [])]}</Layout.Item>
+            <Layout.Item>{[...(dataCards || [])]}</Layout.Item>
         </Layout>
     );
 };
