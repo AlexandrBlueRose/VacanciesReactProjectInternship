@@ -29,12 +29,6 @@ interface InputData {
     mask?: string | (string | RegExp)[];
 }
 
-// function customTypography(
-//     name: 'xs' | 'xsMedium' | 's' | 'sMedium' | 'm' | 'mMedium' | 'l' | 'lMedium' | 'h4' | 'h3' | 'h2' | 'h1'
-// ): CSSObject {
-//     throw new Error(`Function not implemented. name: ${name}`);
-// }
-
 const Input: FC<InputData> = props => {
     const { placeholder, type, id, name, onBlur, onChange, value, mask } = props;
     return (
@@ -72,21 +66,5 @@ const Input: FC<InputData> = props => {
         />
     );
 };
-
-// const InputRef = forwardRef(Input) as typeof Input;
-
-// export const createSelectWithTheme = <V extends EnumLike, S extends EnumLike>(
-//     defaultTheme: InputTheme<V, S>,
-//     defaultVariant: V | keyof V,
-//     defaultSize: S | keyof S
-// ) => {
-//     type InputReturn = ReturnType<typeof InputRef>;
-//     const ThemedSelect = (({ theme = defaultTheme, variant = defaultVariant, size = defaultSize, ...props }, ref) => (
-//         <InputRef theme={theme} variant={variant} size={size} {...props} />
-//     )) as (props: InputData<V, S>, ref: Ref<HTMLButtonElement>) => InputReturn;
-//     (ThemedSelect as any).displayName = 'Button';
-
-//     return forwardRef(ThemedSelect) as typeof ThemedSelect;
-// };
 
 export default Input;
