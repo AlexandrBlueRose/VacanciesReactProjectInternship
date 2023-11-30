@@ -1,8 +1,8 @@
 import { PER_PAGE } from '@api/config/api.config';
 import { IItem } from '@api/types';
-import Card from '@components/Card';
-import { cardDataCompletion } from '@components/Card/script';
 import { Layout, scale } from '@greensight/gds';
+import Card from '@views/component/Card';
+import { cardDataCompletion } from '@views/component/Card/script';
 import { MainPageProps } from '@views/homePage';
 import { FC, JSX } from 'react';
 import { UseQueryResult } from 'react-query';

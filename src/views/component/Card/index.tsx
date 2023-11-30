@@ -11,7 +11,7 @@ import Img from 'public/next.svg';
 import { FC, useState } from 'react';
 import { MEDIA_QUERIES, colors, shadows, typography } from 'src/scripts/gds/gds';
 import { visuallyHiddenCss } from 'src/scripts/gds/themes/global';
-import chervonDBlue from '../../icons/chevronDownLink.svg';
+import chervonDBlue from '../../../icons/chevronDownLink.svg';
 import { cardDataCompletion } from './script';
 
 /**
