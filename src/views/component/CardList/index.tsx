@@ -68,7 +68,7 @@ const CardList: FC<cardProps> = props => {
         if (isLoading === cardsPreloadLength) {
             setDataCards(onLoad(data));
         }
-    }, [cardPreload, cardsPreloadLength, data, isLoading]);
+    }, [cardPreload, data, isLoading]);
 
     return (
         <Layout type="flex" direction="column" css={{ rowGap: `${scale(4)}px` }}>
