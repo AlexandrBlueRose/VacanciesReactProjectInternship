@@ -56,16 +56,14 @@ const CardList: FC<cardProps> = props => {
 
     const cardPreload = useMemo(() => convertData(prefetchData), [prefetchData]);
 
-    const cardsPreloadLength = cardPreload.length;
-
     useEffect(() => {
-        if (cardsPreloadLength > PER_PAGE) {
+        if (cardPreload.length > PER_PAGE) {
             setDataCards([
-                ...onLoad(data).slice(0, cardsPreloadLength - PER_PAGE),
-                ...(cardPreload.slice(cardsPreloadLength - PER_PAGE) || []),
+                ...onLoad(data).slice(0, cardPreload.length - PER_PAGE),
+                ...(cardPreload.slice(cardPreload.length - PER_PAGE) || []),
             ]);
         }
-        if (isLoading === cardsPreloadLength) {
+        if (isLoading === cardPreload.length) {
             setDataCards(onLoad(data));
         }
     }, [cardPreload, data, isLoading]);
