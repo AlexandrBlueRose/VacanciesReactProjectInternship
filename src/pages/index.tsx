@@ -8,7 +8,7 @@ import { QueryClient, dehydrate } from '@tanstack/react-query';
 import MainVacanciesPage from '@views/homePage';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { UseQueryResult } from 'react-query';
 
 const HomePage: NextPage = () => {
@@ -23,7 +23,7 @@ const HomePage: NextPage = () => {
             `${router.basePath}?per_page=${PER_PAGE}&page=${data?.pages[data.pages.length - 1].page || 0 + 1}`
         );
     }, [data?.pages, router]);
-    const onLoadCards = () => {
+    const onLoadCards = useCallback(() => {
         const lastPageNum = (data?.pages[data.pages.length - 1].page || 0) + 1;
         router.push(
             {
@@ -37,7 +37,7 @@ const HomePage: NextPage = () => {
             { shallow: true }
         );
         fetchNextPage();
-    };
+    }, [data?.pages, fetchNextPage, router]);
     return <MainVacanciesPage prefetchData={requestData || []} data={dataCards} onLoadCards={onLoadCards} />;
 };
 

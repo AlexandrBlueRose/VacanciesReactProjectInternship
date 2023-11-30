@@ -8,7 +8,7 @@ import { useCart } from '@context/cardLoadingContext/CardProvider';
 import { Layout, scale } from '@greensight/gds';
 import closeIcon from '@icons/close.svg';
 import router from 'next/router';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react';
 import { MEDIA_QUERIES, typography } from 'src/scripts/gds/gds';
 
 export type keyApi = {
@@ -42,7 +42,7 @@ const Filter: FC<IFilter> = props => {
     const { filtersContext, setFiltersContext, changeFiltersById, isSearch, setSearch, setFiltersS } = useCart();
     const [selectClear, setSelectClear] = useState(false);
     const [filterFolder, setFilterFolder] = useState<keyApi[]>();
-    const resetPathUrl = () => {
+    const resetPathUrl = useCallback(() => {
         router.push(
             {
                 pathname: router.basePath,
@@ -51,8 +51,8 @@ const Filter: FC<IFilter> = props => {
             undefined,
             { shallow: true }
         );
-    };
-    const onSearch = () => {
+    }, []);
+    const onSearch = useCallback(() => {
         setSearch(!isSearch);
         if (filterFolder?.length !== undefined && filterFolder?.length > 0) {
             let preFilter: keyApi[] = [];
@@ -76,8 +76,17 @@ const Filter: FC<IFilter> = props => {
         resetPathUrl();
         setFilterFolder(filtersContext);
         setSelectClear(false);
-    };
-    const onClear = () => {
+    }, [
+        filterFolder,
+        filterSelect.length,
+        filtersContext,
+        isSearch,
+        resetPathUrl,
+        setFiltersContext,
+        setFiltersS,
+        setSearch,
+    ]);
+    const onClear = useCallback(() => {
         setSearch(!isSearch);
         setFiltersS([]);
         setFilterFolder([]);
@@ -87,7 +96,7 @@ const Filter: FC<IFilter> = props => {
             query: {},
         });
         setSelectClear(true);
-    };
+    }, [isSearch, resetPathUrl, setFiltersS, setSearch]);
 
     return (
         <Layout

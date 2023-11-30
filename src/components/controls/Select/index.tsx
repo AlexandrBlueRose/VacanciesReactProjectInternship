@@ -3,7 +3,7 @@
 import { ISelectFilter } from '@components/Filter';
 import { Layout, scale } from '@greensight/gds';
 import { colors, shadows } from '@public/tokens.json';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { typography } from 'src/scripts/gds/gds';
 import chervonD from '../../../icons/chevronDown.svg';
 import Button from '../Button';
@@ -46,28 +46,31 @@ const Select: FC<ISelectFilter> = props => {
         };
     }, [onClose]);
 
-    const onOpenSelect = () => {
+    const onOpenSelect = useCallback(() => {
         setIsOpenSelect(!isOpenSelect);
-    };
+    }, [isOpenSelect]);
 
     useEffect(() => {
         if (selectClear) setSelectValue(dataEventual);
     }, [dataEventual, selectClear]);
 
-    const onSelectOption = (value: OptionData['value'], key: OptionData['key']) => {
-        setIsOpenSelect(false);
-        onChange?.(value, key);
-        setSelectValue(value);
-        setSelectKey(key);
+    const onSelectOption = useCallback(
+        (value: OptionData['value'], key: OptionData['key']) => {
+            setIsOpenSelect(false);
+            onChange?.(value, key);
+            setSelectValue(value);
+            setSelectKey(key);
 
-        if (filtersContext && filterContextChange && changeFiltersById) {
-            if (filtersContext.filter(item => item.id === title).length === 0) {
-                filterContextChange({ key: dataKey, value: key, isSearch: true, id: title });
-            } else if (!filtersContext.includes({ key, value, isSearch: true, id: title })) {
-                changeFiltersById(title, { key: dataKey, value: key, isSearch: true, id: title });
+            if (filtersContext && filterContextChange && changeFiltersById) {
+                if (filtersContext.filter(item => item.id === title).length === 0) {
+                    filterContextChange({ key: dataKey, value: key, isSearch: true, id: title });
+                } else if (!filtersContext.includes({ key, value, isSearch: true, id: title })) {
+                    changeFiltersById(title, { key: dataKey, value: key, isSearch: true, id: title });
+                }
             }
-        }
-    };
+        },
+        [changeFiltersById, dataKey, filterContextChange, filtersContext, onChange, title]
+    );
 
     return (
         <Layout

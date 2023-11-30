@@ -25,15 +25,12 @@ export const FilterContext = createContext<IFilterContext | null>(null);
 
 const CardProvider: FC<PropsWithChildren> = ({ children }) => {
     const [isSearch, setSearch] = useState(false);
-    const filtersContext: keyApi[] = useMemo(() => [], []);
+    const [filtersContext, setFilterContext] = useState<keyApi[]>([]);
     const [filtersS, setFiltersS] = useState<keyApi[]>([]);
 
-    const setFiltersContext = useCallback(
-        (value: keyApi) => {
-            filtersContext.push(value);
-        },
-        [filtersContext]
-    );
+    const setFiltersContext = useCallback((value: keyApi) => {
+        setFilterContext([value]);
+    }, []);
     const changeFiltersById = useCallback(
         (value: string, changeValue: keyApi) => {
             const result: keyApi[] = filtersContext.map(filter => {

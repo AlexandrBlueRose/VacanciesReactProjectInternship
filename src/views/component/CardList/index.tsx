@@ -1,10 +1,11 @@
 import { PER_PAGE } from '@api/config/api.config';
+import { convertDataRequest } from '@api/script';
 import { IItem } from '@api/types';
 import { Layout, scale } from '@greensight/gds';
 import Card from '@views/component/Card';
 import { cardDataCompletion } from '@views/component/Card/script';
 import { MainPageProps } from '@views/homePage';
-import { FC, JSX } from 'react';
+import { FC, JSX, useEffect, useMemo, useState } from 'react';
 import { UseQueryResult } from 'react-query';
 
 const onLoad = (requestFullData: UseQueryResult<IItem, unknown>[]) => {
@@ -43,31 +44,35 @@ const onPreLoad = (requestFullData: IItem[]) => {
 
 type cardProps = Omit<MainPageProps, 'onLoadCards'>;
 
+const convertData = (prefetchData: IItem[][]) => {
+    const prefetchRequest: IItem[] = convertDataRequest(prefetchData);
+    return onPreLoad(prefetchRequest);
+};
+
 const CardList: FC<cardProps> = props => {
     const { data, prefetchData } = props;
-    let dataCards: (JSX.Element | null)[] = [];
+    const [dataCards, setDataCards] = useState<(JSX.Element | null)[]>();
+    const isLoading: number = useMemo(() => data.filter(item => item.status === 'success').length, [data]);
 
-    const isLoading = data.filter(item => item.status === 'success').length;
-
-    const prefetchRequest = prefetchData.reduce<IItem[]>((acc, cur) => [...acc, ...cur], []);
-
-    const cardPreload = onPreLoad(prefetchRequest);
+    const cardPreload = useMemo(() => convertData(prefetchData), [prefetchData]);
 
     const cardsPreloadLength = cardPreload.length;
 
-    if (cardsPreloadLength > PER_PAGE) {
-        dataCards = [
-            ...onLoad(data).slice(0, cardsPreloadLength - PER_PAGE),
-            ...cardPreload.slice(cardsPreloadLength - PER_PAGE),
-        ];
-    }
+    useEffect(() => {
+        if (cardsPreloadLength > PER_PAGE) {
+            setDataCards([
+                ...onLoad(data).slice(0, cardsPreloadLength - PER_PAGE),
+                ...(cardPreload.slice(cardsPreloadLength - PER_PAGE) || []),
+            ]);
+        }
+        if (isLoading === cardsPreloadLength) {
+            setDataCards(onLoad(data));
+        }
+    }, [cardPreload, cardsPreloadLength, data, isLoading]);
 
-    if (isLoading === cardsPreloadLength) {
-        dataCards = onLoad(data);
-    }
     return (
         <Layout type="flex" direction="column" css={{ rowGap: `${scale(4)}px` }}>
-            <Layout.Item>{isLoading < 5 ? [...cardPreload] : [...dataCards]}</Layout.Item>
+            <Layout.Item>{isLoading < 5 ? [...cardPreload] : [...(dataCards || [])]}</Layout.Item>
         </Layout>
     );
 };
