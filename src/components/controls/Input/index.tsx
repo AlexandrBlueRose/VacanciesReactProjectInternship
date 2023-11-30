@@ -1,4 +1,3 @@
-import { CSSObject } from '@emotion/core';
 import { scale } from '@greensight/gds';
 import { ChangeEventHandler, FC, FocusEventHandler } from 'react';
 import InputMask from 'react-input-mask';
@@ -30,11 +29,11 @@ interface InputData {
     mask?: string | (string | RegExp)[];
 }
 
-function customTypography(
-    name: 'xs' | 'xsMedium' | 's' | 'sMedium' | 'm' | 'mMedium' | 'l' | 'lMedium' | 'h4' | 'h3' | 'h2' | 'h1'
-): CSSObject {
-    throw new Error(`Function not implemented. name: ${name}`);
-}
+// function customTypography(
+//     name: 'xs' | 'xsMedium' | 's' | 'sMedium' | 'm' | 'mMedium' | 'l' | 'lMedium' | 'h4' | 'h3' | 'h2' | 'h1'
+// ): CSSObject {
+//     throw new Error(`Function not implemented. name: ${name}`);
+// }
 
 const Input: FC<InputData> = props => {
     const { placeholder, type, id, name, onBlur, onChange, value, mask } = props;

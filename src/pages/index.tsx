@@ -1,6 +1,6 @@
 import { MAX_PAGE, PER_PAGE } from '@api/config/api.config';
-import { useLoadData, useVacancies } from '@api/hooks';
-import { VacanciesService } from '@api/services/vacancies.service';
+import { useApiData, useLoadData } from '@api/hooks';
+import { ApiService } from '@api/services/vacancies.service';
 import { IItem } from '@api/types';
 import { keyApi } from '@components/Filter';
 import { useCart } from '@context/cardLoadingContext/CardProvider';
@@ -14,7 +14,7 @@ import { UseQueryResult } from 'react-query';
 const HomePage: NextPage = () => {
     const { filtersS } = useCart();
     const router = useRouter();
-    const { data, fetchNextPage } = useVacancies(filtersS || []);
+    const { data, fetchNextPage } = useApiData(filtersS || []);
     const requestData: IItem[][] | undefined = data?.pages.map(items => items.items);
     let dataCards: UseQueryResult<IItem, unknown>[] = [];
     dataCards = useLoadData(requestData || [[]]);
@@ -43,7 +43,7 @@ const HomePage: NextPage = () => {
 
 export async function getServerSideProps(context: any) {
     const { page } = context.query;
-    const fetchProjects = async () => VacanciesService.getAllVacancies(page || 1, PER_PAGE).then(result => result.data);
+    const fetchProjects = async () => ApiService.getAllDataFromApi(page || 1, PER_PAGE).then(result => result.data);
     const queryClient = new QueryClient();
 
     await queryClient.prefetchInfiniteQuery({

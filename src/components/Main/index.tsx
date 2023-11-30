@@ -63,7 +63,7 @@ const Main: FC<MainPageProps> = ({ onLoadCards, data, prefetchData }) => (
                     ...typography('m'),
                 }}
             >
-                By clicking "Send" you confirm your consent to the
+                By clicking &quot;Send&quot; you confirm your consent to the
                 <br />
                 <Link
                     href=""

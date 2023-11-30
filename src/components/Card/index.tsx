@@ -56,6 +56,7 @@ const Card: FC<{ card: IVacancies | null }> = props => {
     const onOpenDescription = () => {
         setDescriptionIsOpen(!isDescriptionOpen);
     };
+
     return (
         <Layout type="flex">
             <Layout.Item
@@ -251,6 +252,7 @@ const Card: FC<{ card: IVacancies | null }> = props => {
         </Layout>
     );
 };
+
 export const onLoad = (requestFullData: UseQueryResult<AxiosResponse<IItem, any>, Error>[]) => {
     const cardCompletion = requestFullData.map(item =>
         item?.data?.data !== undefined ? cardDataCompletion(item?.data?.data) : 'Data error'
@@ -262,6 +264,7 @@ export const onLoad = (requestFullData: UseQueryResult<AxiosResponse<IItem, any>
         }
         return '';
     });
+
     return ret;
 };
 
