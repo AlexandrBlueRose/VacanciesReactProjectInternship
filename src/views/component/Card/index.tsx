@@ -28,27 +28,21 @@ import { cardDataCompletion } from './script';
 const Card: FC<{ card: IVacancies | null }> = props => {
     const { card } = props;
     const [isDescriptionOpen, setDescriptionIsOpen] = useState(false);
-    const descriptionStyle: CSSObject = !isDescriptionOpen
-        ? {
-              width: '100%',
-              position: 'relative',
-              maxHeight: `130px`,
-              maxWidth: '63.3%',
-              overflow: 'hidden',
-              transition: '0.5s',
-              margin: `${scale(3, true)}px 0`,
-              [MEDIA_QUERIES.md]: {
-                  maxWidth: '100%',
-              },
-          }
-        : {
-              width: '100%',
-              position: 'relative',
-              maxWidth: '63.3%',
-              [MEDIA_QUERIES.md]: {
-                  maxWidth: '100%',
-              },
-          };
+    const descriptionStyle: CSSObject = {
+        width: '100%',
+        position: 'relative',
+        maxWidth: '63.3%',
+        [MEDIA_QUERIES.md]: {
+            maxWidth: '100%',
+        },
+
+        ...(!isDescriptionOpen && {
+            maxHeight: `130px`,
+            overflow: 'hidden',
+            transition: '0.5s',
+            margin: `${scale(3, true)}px 0`,
+        }),
+    };
 
     const conditionsStyle: CSSObject = { display: 'flex', gap: `${scale(2)}px`, color: colors.grey700 };
     const conditionValueStyle: CSSObject = { color: colors.black };
@@ -213,25 +207,19 @@ const Card: FC<{ card: IVacancies | null }> = props => {
                                             : '<div>Description not found</div>',
                                 }}
                             />
-                            <div
-                                css={
-                                    !isDescriptionOpen
-                                        ? {
-                                              position: 'absolute',
-                                              top: '90%',
-                                              background:
-                                                  'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 1))',
-                                              width: '100%',
-                                              height: '90px',
-                                              opacity: 1,
-                                          }
-                                        : {
-                                              height: 0,
-                                              width: 0,
-                                              opacity: 0,
-                                          }
-                                }
-                            />
+                            {!isDescriptionOpen && (
+                                <div
+                                    css={{
+                                        position: 'absolute',
+                                        top: '90%',
+                                        background:
+                                            'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 1))',
+                                        width: '100%',
+                                        height: '90px',
+                                        opacity: 1,
+                                    }}
+                                />
+                            )}
                         </Layout.Item>
                         <Layout.Item css={{ width: '100%' }}>
                             <div css={{ margin: '0 auto' }}>

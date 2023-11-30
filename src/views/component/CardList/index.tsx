@@ -52,7 +52,7 @@ const convertData = (prefetchData: IItem[][]) => {
 const CardList: FC<cardProps> = props => {
     const { data, prefetchData } = props;
     const [dataCards, setDataCards] = useState<(JSX.Element | null)[]>();
-    const isLoading: number = useMemo(() => data.filter(item => item.status === 'success').length, [data]);
+    const countLoading: number = useMemo(() => data.filter(item => item.status === 'success').length, [data]);
 
     const cardPreload = useMemo(() => convertData(prefetchData), [prefetchData]);
 
@@ -63,14 +63,14 @@ const CardList: FC<cardProps> = props => {
                 ...(cardPreload.slice(cardPreload.length - PER_PAGE) || []),
             ]);
         }
-        if (isLoading === cardPreload.length) {
+        if (countLoading === cardPreload.length) {
             setDataCards(onLoad(data));
         }
-    }, [cardPreload, data, isLoading]);
+    }, [cardPreload, data, countLoading]);
 
     return (
         <Layout type="flex" direction="column" css={{ rowGap: `${scale(4)}px` }}>
-            <Layout.Item>{isLoading < 5 ? [...(cardPreload || [])] : [...(dataCards || [null])]}</Layout.Item>
+            <Layout.Item>{countLoading < PER_PAGE ? [...(cardPreload || [])] : [...(dataCards || [])]}</Layout.Item>
         </Layout>
     );
 };

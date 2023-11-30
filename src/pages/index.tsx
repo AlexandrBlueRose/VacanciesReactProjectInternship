@@ -9,15 +9,13 @@ import MainVacanciesPage from '@views/homePage';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo } from 'react';
-import { UseQueryResult } from 'react-query';
 
 const HomePage: NextPage = () => {
     const { filtersS } = useCart();
     const router = useRouter();
     const { data, fetchNextPage } = useApiData(filtersS || []);
     const requestData: IItem[][] | undefined = useMemo(() => data?.pages.map(items => items.items), [data?.pages]);
-    let dataCards: UseQueryResult<IItem, unknown>[] = [];
-    dataCards = useLoadData(requestData || [[]]);
+    const dataCards = useLoadData(requestData || [[]]);
     useEffect(() => {
         router.prefetch(
             `${router.basePath}?per_page=${PER_PAGE}&page=${data?.pages[data.pages.length - 1].page || 0 + 1}`
