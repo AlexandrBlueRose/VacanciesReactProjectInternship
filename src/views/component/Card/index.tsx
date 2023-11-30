@@ -8,7 +8,7 @@ import { UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import Image from 'next/image';
 import Img from 'public/next.svg';
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { MEDIA_QUERIES, colors, shadows, typography } from 'src/scripts/gds/gds';
 import { visuallyHiddenCss } from 'src/scripts/gds/themes/global';
 import chervonDBlue from '../../../icons/chevronDownLink.svg';
@@ -53,9 +53,9 @@ const Card: FC<{ card: IVacancies | null }> = props => {
     const conditionsStyle: CSSObject = { display: 'flex', gap: `${scale(2)}px`, color: colors.grey700 };
     const conditionValueStyle: CSSObject = { color: colors.black };
 
-    const onOpenDescription = () => {
+    const onOpenDescription = useCallback(() => {
         setDescriptionIsOpen(!isDescriptionOpen);
-    };
+    }, [isDescriptionOpen]);
 
     return (
         <Layout type="flex">

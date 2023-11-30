@@ -8,14 +8,14 @@ import { QueryClient, dehydrate } from '@tanstack/react-query';
 import MainVacanciesPage from '@views/homePage';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { UseQueryResult } from 'react-query';
 
 const HomePage: NextPage = () => {
     const { filtersS } = useCart();
     const router = useRouter();
     const { data, fetchNextPage } = useApiData(filtersS || []);
-    const requestData: IItem[][] | undefined = data?.pages.map(items => items.items);
+    const requestData: IItem[][] | undefined = useMemo(() => data?.pages.map(items => items.items), [data?.pages]);
     let dataCards: UseQueryResult<IItem, unknown>[] = [];
     dataCards = useLoadData(requestData || [[]]);
     useEffect(() => {

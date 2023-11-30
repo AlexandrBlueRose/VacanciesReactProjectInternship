@@ -42,7 +42,7 @@ const Filter: FC<IFilter> = props => {
     const { filtersContext, setFiltersContext, changeFiltersById, isSearch, setSearch, setFiltersS } = useCart();
     const [selectClear, setSelectClear] = useState(false);
     const [filterFolder, setFilterFolder] = useState<keyApi[]>();
-    const resetPathUrl = useCallback(() => {
+    const resetPathUrl = () => {
         router.push(
             {
                 pathname: router.basePath,
@@ -51,7 +51,7 @@ const Filter: FC<IFilter> = props => {
             undefined,
             { shallow: true }
         );
-    }, []);
+    };
     const onSearch = useCallback(() => {
         setSearch(!isSearch);
         if (filterFolder?.length !== undefined && filterFolder?.length > 0) {
@@ -76,16 +76,7 @@ const Filter: FC<IFilter> = props => {
         resetPathUrl();
         setFilterFolder(filtersContext);
         setSelectClear(false);
-    }, [
-        filterFolder,
-        filterSelect.length,
-        filtersContext,
-        isSearch,
-        resetPathUrl,
-        setFiltersContext,
-        setFiltersS,
-        setSearch,
-    ]);
+    }, [filterFolder, filterSelect.length, filtersContext, isSearch, setFiltersContext, setFiltersS, setSearch]);
     const onClear = useCallback(() => {
         setSearch(!isSearch);
         setFiltersS([]);
@@ -96,7 +87,7 @@ const Filter: FC<IFilter> = props => {
             query: {},
         });
         setSelectClear(true);
-    }, [isSearch, resetPathUrl, setFiltersS, setSearch]);
+    }, [isSearch, setFiltersS, setSearch]);
 
     return (
         <Layout

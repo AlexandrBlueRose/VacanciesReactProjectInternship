@@ -72,7 +72,7 @@ const CardList: FC<cardProps> = props => {
 
     return (
         <Layout type="flex" direction="column" css={{ rowGap: `${scale(4)}px` }}>
-            <Layout.Item>{isLoading < 5 ? [...cardPreload] : [...(dataCards || [])]}</Layout.Item>
+            <Layout.Item>{isLoading < 5 ? [...(cardPreload || [])] : [...(dataCards || [null])]}</Layout.Item>
         </Layout>
     );
 };
